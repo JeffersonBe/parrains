@@ -1,0 +1,3 @@
+CREATE VIEW fillots(id,prenom,nom,ecole,parrain,fillotv,clef,parraincoeur, coeurv,clefcoeur) AS SELECT id,prenom,nom,ecole,'0','0','0','0','0','0' FROM nainsa where cotisantbde='oui' AND email<>'pe73.@free.fr';
+
+CREATE TABLE fillots(id INTEGER PRIMARY KEY,prenom TEXT,nom TEXT,ecole VARCHAR(3),parrain INTEGER,fillotv INTEGER NOT NULL,clef TEXT,parraincoeur INTEGER, coeurv INTEGER NOT NULL,clefcoeur TEXT) AS SELECT id,prenom,nom,ecole FROM nainsa where cotisantbde='oui' AND email<>'pe73.@free.fr';
