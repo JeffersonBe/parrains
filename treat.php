@@ -1,49 +1,38 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<!DOCTYPE html>
+
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="Identifier-URL" content=""/>
-<meta name="language" content="fr"/>
-<meta name="location" content="France"/>
-<meta name="Author" content="Pierre-Edouard MONTABRUN"/>
-<meta name="Description" content="Choisis ton parrain pour la soirée de parrainage I shot the sherif."/>
-<meta name="keywords" content="Parrainage parrain soirée I shot the sherif 2011 Télécom SudParis Télécom Ecole de Management Chuck Norris"/>
-<meta name="htdig-keywords" content=""/>
-<meta name="subject" content=""/>
-<meta name="Date-Creation-yyyymmdd" content="20110930"/>
-<meta name="Audience" content="all"/>
-<link rel="stylesheet" media="screen" type="text/css" href="style.css" />
-<title>Enregistrement du couple parrain/fillot...</title>
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="com.js"></script>
- <!--[if IE]>
-		<style type="text/css">
-			#menu {
-				-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color=#212121,direction=180,strength=0)";
-				filter: progid:DXImageTransform.Microsoft.Shadow(color=#212121,direction=180,strength=0);
-			}
-			#menu ul li a {
-				-ms-filter:  "progid:DXImageTransform.Microsoft.Blur()";
-				filter:  progid:DXImageTransform.Microsoft.Blur();
-			#menu {
-	                -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color=#212121,direction=180,strength=0)"; /* IE 8 */
-	                filter: progid:DXImageTransform.Microsoft.Shadow(color=#212121,direction=180,strength=0); /* IE 7- */
-	            }
-			}
-		</style>
-	<![endif]-->
+  <meta charset="utf-8" />
+
+  <!-- Set the viewport width to device width for mobile -->
+  <meta name="viewport" content="width=device-width" />
+
+  <title>Welcome to Foundation</title>
+
+  <!-- Included CSS Files (Uncompressed) -->
+  <!--
+  <link rel="stylesheet" href="stylesheets/foundation.css">
+  -->
+
+  <!-- Included CSS Files (Compressed) -->
+  <link rel="stylesheet" href="stylesheets/foundation.min.css">
+  <link rel="stylesheet" href="stylesheets/app.css">
+
+  <script src="javascripts/modernizr.foundation.js"></script>
+
+  <!-- IE Fix for HTML5 Tags -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
 </head>
 <body>
-<div id='full'>
-<div id='bg'>
-<div id='menu'>
-<ul>
-<li class="active"><a href="index.php">Choisir son parrain</a></li>
-<li><a href="indexcoeur.php">Choisir son parrain de coeur</a></li>
-</ul>
-</div>
-<div id='content'>
-<?php
+  <div class="row">
+    <?php
 require_once('recaptchalib.php');
 $privatekey = "6LffA9ISAAAAAFwUYq8QA-2uyKLE3I5VGvXHTRrO";
 $resp = recaptcha_check_answer ($privatekey,
@@ -185,6 +174,60 @@ else
     }
 }
 ?>
+  <!-- Included JS Files (Compressed) -->
+  <script src="javascripts/jquery.js"></script>
+  <script src="javascripts/foundation.min.js"></script>
+
+  <!-- Initialize JS Plugins -->
+  <script src="javascripts/app.js"></script>
+</body>
+</html>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Identifier-URL" content=""/>
+<meta name="language" content="fr"/>
+<meta name="location" content="France"/>
+<meta name="Author" content="Pierre-Edouard MONTABRUN"/>
+<meta name="Description" content="Choisis ton parrain pour la soirée de parrainage I shot the sherif."/>
+<meta name="keywords" content="Parrainage parrain soirée I shot the sherif 2011 Télécom SudParis Télécom Ecole de Management Chuck Norris"/>
+<meta name="htdig-keywords" content=""/>
+<meta name="subject" content=""/>
+<meta name="Date-Creation-yyyymmdd" content="20110930"/>
+<meta name="Audience" content="all"/>
+<link rel="stylesheet" media="screen" type="text/css" href="style.css" />
+<title>Enregistrement du couple parrain/fillot...</title>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="com.js"></script>
+ <!--[if IE]>
+		<style type="text/css">
+			#menu {
+				-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color=#212121,direction=180,strength=0)";
+				filter: progid:DXImageTransform.Microsoft.Shadow(color=#212121,direction=180,strength=0);
+			}
+			#menu ul li a {
+				-ms-filter:  "progid:DXImageTransform.Microsoft.Blur()";
+				filter:  progid:DXImageTransform.Microsoft.Blur();
+			#menu {
+	                -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color=#212121,direction=180,strength=0)"; /* IE 8 */
+	                filter: progid:DXImageTransform.Microsoft.Shadow(color=#212121,direction=180,strength=0); /* IE 7- */
+	            }
+			}
+		</style>
+	<![endif]-->
+</head>
+<body>
+<div id='full'>
+<div id='bg'>
+<div id='menu'>
+<ul>
+<li class="active"><a href="index.php">Choisir son parrain</a></li>
+<li><a href="indexcoeur.php">Choisir son parrain de coeur</a></li>
+</ul>
+</div>
+<div id='content'>
         </div>
     </div>
 </div>
