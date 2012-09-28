@@ -33,7 +33,7 @@
 	lang: 'fr'
  };
  </script>
- 
+
  <!--[if IE]>
 		<style type="text/css">
 			#menu {
@@ -63,16 +63,16 @@
 </div>
 <div id='content'>
 
-<?php 
+<?php
 
-function mail_utf8($to, $subject, $message, $header) 
+function mail_utf8($to, $subject, $message, $header)
 {
   $header_ = 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/html; charset=UTF-8' . "\r\n";
   mail($to, '=?UTF-8?B?'.base64_encode($subject).'?=', $message, $header_ . $header);
 }
 
 require_once('recaptchalib.php');
-$privatekey = "6LcqnMgSAAAAAIZ7gLOAGZN12XB4KDSK8w6Ki5ch ";
+$privatekey = "6LffA9ISAAAAAFwUYq8QA-2uyKLE3I5VGvXHTRrO";
 $resp = recaptcha_check_answer ($privatekey,
 							$_SERVER["REMOTE_ADDR"],
 							$_POST["recaptcha_challenge_field"],
@@ -145,37 +145,34 @@ if($parraincoeurv==1)
 		$clef = md5(microtime(NULL)*100000);
 	$query=$bdd->prepare('UPDATE fillots SET parraincoeur=:r_parrain, coeurv=\'0\', clefcoeur=:r_clef WHERE id= :r_id;');
 	$query->execute(array('r_id' => $idfillot, 'r_parrain'=>$idparrain,'r_clef'=>$clef));
-	
-	
 
 	$sujet = "[PARRAINAGE] Confirme que ton parrain de coeur est bien ".$parrain_prenom." ".$parrain_nom."!" ;
-	$headers = 'From: Staff Hypnoz <contact@hypnoz2011.com>'."\r\n";
-	$message="<img src='http://www.hypnoz2011.com/parrains/img/logo_hypnoz.jpg' width='395' height='200' style='margin-right:auto;margin-left:auto;text-align:center;'/><br></br><br></br>
+	$headers = 'From: Staff Hypnoz <contact@showtime2012.com>'."\r\n";
+	$message="<img src='http://www.showtime2012.com/parrains/img/logo_hypnoz.jpg' width='395' height='200' style='margin-right:auto;margin-left:auto;text-align:center;'/><br></br><br></br>
 	Salut ".$fillot_prenom." ".$fillot_nom.",<br></br><br></br>Pour confirmer que ton parrain de coeur est bien ".$parrain_prenom." ".$parrain_nom.", clique ici:<br></br>
 
-	<a href=http://www.hypnoz2011.com/parrains/confirmationfillotcoeur.php?p=".urlencode($idparrain)."&f=".urlencode($idfillot)."&c=".urlencode($clef).">http://www.hypnoz2011.com/parrains/confirmationfillotcoeur.php?p=".urlencode($idparrain)."&f=".urlencode($idfillot)."&c=".urlencode($clef)." </a><br></br><br></br>
+	<a href=http://www.showtime2012.com/parrains/confirmationfillotcoeur.php?p=".urlencode($idparrain)."&f=".urlencode($idfillot)."&c=".urlencode($clef).">http://www.showtime2012.com/parrains/confirmationfillotcoeur.php?p=".urlencode($idparrain)."&f=".urlencode($idfillot)."&c=".urlencode($clef)." </a><br></br><br></br>
 
 	Attention, si tu ne valides pas ton inscription dans les 24h, elle sera effacée.<br></br>
 
 	<br><br/>Bisous tout partout,<br><br/><br><br/>Le Staff Hypnoz";
-	
+
 $find = array('à','â','ä','é','è','ê','ë','î','ï','ç','ù','ü','ô','ö');
 $replace = array('a','a','a','e','e','e','e','i','i','c','u','u','o','o');
 	$emailecole=strtolower($fillot_prenom).'.'.strtolower($fillot_nom)."@it-sudparis.eu";
-	mail_utf8($emailecole, $sujet, $message, $headers) ; // Envoi du mail sur l'adresse de l'école	
-	
+	mail_utf8($emailecole, $sujet, $message, $headers) ; // Envoi du mail sur l'adresse de l'école
+
 	//Update et envoi du mail pour le parrain
 	$clef = md5(microtime(NULL)*100000);
 	$query=$bdd->prepare('UPDATE parrains SET fillotcoeur=:r_fillot, coeurv=\'0\', clefcoeur=:r_clef WHERE id= :r_id;');
 	$query->execute(array('r_id' => $idparrain, 'r_fillot'=>$idfillot,'r_clef'=>$clef));
 
-
 	$sujet = "[PARRAINAGE] Confirme que ton fillot de coeur est bien ".$fillot_prenom." ".$fillot_nom."!" ;
-	$headers = 'From: Staff Hypnoz <contact@hypnoz2011.com>'."\r\n";
-	$message="<img src='http://www.hypnoz2011.com/parrains/img/logo_hypnoz.jpg' width='395' height='200' style='margin-right:auto;margin-left:auto;text-align:center;'/><br></br><br></br>
+	$headers = 'From: Staff Hypnoz <contact@showtime2012.com>'."\r\n";
+	$message="<img src='http://www.showtime2012.com/parrains/img/logo_hypnoz.jpg' width='395' height='200' style='margin-right:auto;margin-left:auto;text-align:center;'/><br></br><br></br>
 	Salut ".$parrain_prenom." ".$parrain_nom.",<br></br><br></br>Pour confirmer que ton fillot est bien ".$fillot_prenom." ".strtoupper($fillot_nom).", clique ici:<br></br>
 
-	<a href=http://www.hypnoz2011.com/parrains/confirmationparraincoeur.php?p=".urlencode($idparrain)."&f=".urlencode($idfillot)."&c=".urlencode($clef).">http://www.hypnoz2011.com/parrains/confirmationparraincoeur.php?p=".urlencode($idparrain)."&f=".urlencode($idfillot)."&c=".urlencode($clef)." </a><br></br><br></br>
+	<a href=http://www.showtime2012.com/parrains/confirmationparraincoeur.php?p=".urlencode($idparrain)."&f=".urlencode($idfillot)."&c=".urlencode($clef).">http://www.showtime2012.com/parrains/confirmationparraincoeur.php?p=".urlencode($idparrain)."&f=".urlencode($idfillot)."&c=".urlencode($clef)." </a><br></br><br></br>
 
 	Attention, si tu ne valides pas ton inscription dans les 24h, elle sera effacée.<br></br>
 
@@ -184,7 +181,7 @@ $replace = array('a','a','a','e','e','e','e','i','i','c','u','u','o','o');
 	mail_utf8($emailecole, $sujet, $message, $headers) ; // Envoi du mail sur l'adresse de l'école
 
 		echo "Félicitation ".$parrain_prenom." ".strtoupper($parrain_nom)." et ".$fillot_prenom." ".$fillot_nom.", vous avez été enregistrés comme parrain et fillot. Un email va être envoyé sur votre adresse Telecom, n'oubliez pas d'y répondre pour confirmer le parrainage.";
-		
+
 }
 }
 
