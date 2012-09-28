@@ -32,9 +32,9 @@
 </head>
 <body>
   <div class="row">
-    <p class="ten columns centered">Choisis ton parrain/ta marraine. Il/Elle doit être dans la même école que toi. Vous recevrez ensuite un lien de confirmation sur vos adresses email telecom respectives.</p>
+    <p class="ten columns centered">Choisis ton parrain/ta marraine de coeur. Vous recevrez ensuite un lien de confirmation sur vos adresses email telecom respectives.</p>
             <div class="twelve columns">
-                <form method="post" action="" class="six columns centered">
+                <form method="post" action="treatcoeur.php" class="six columns centered">
                     <label for="nomFillot">Nom du fillot</label>
                         <input type="text" name="nomFillot" required/>
 
@@ -42,7 +42,7 @@
                         <input type="text" name="prenomFillot" required/>
 
                     <label for="emailFillot">Email du fillot</label>
-                        <input type="text" name="emailFillot" required/>
+                        <input type="email" name="emailFillot" required/>
 
                     <label for="nomParrain">Nom du parrain</label>
                         <input type="text" name="nomParrain" required/>
@@ -51,7 +51,8 @@
                         <input type="text" name="prenomParrain" required/>
 
                     <label for="emailParrain">Email du Parrain</label>
-                        <input type="text" name="emailParrain" required/>
+                        <input type="email" name="emailParrain" required/>
+                    <div class="mobile-four">
                         <?php
                             require_once('recaptchalib.php');
 
@@ -80,8 +81,10 @@
                             }
                             echo recaptcha_get_html($publickey, $error);
                         ?>
+                    </div>
                     <input type="submit" class="button large" value="Match!"/>
                 </form>
+
   </div>
   <!-- Included JS Files (Compressed) -->
   <script src="javascripts/jquery.js"></script>
