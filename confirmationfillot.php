@@ -33,7 +33,7 @@
 	lang: 'fr'
  };
  </script>
- 
+
  <!--[if IE]>
 		<style type="text/css">
 			#menu {
@@ -74,6 +74,7 @@ if((!empty($_GET['p']))&&(!empty($_GET['f']))&&(!empty($_GET['c'])))
 	$clef=addslashes($_GET['c']);
 	$idparrain=addslashes($_GET['p']);
 	$idfillot=addslashes($_GET['f']);
+
 	$query=$bdd->prepare('SELECT clef,fillotv FROM fillots WHERE id=:r_idfillot AND parrain=:r_idparrain;');
 	$answer=$query->execute(array('r_idfillot'=>$idfillot, 'r_idparrain'=>$idparrain));
 	if($answer=$query->fetch())
@@ -84,7 +85,7 @@ if((!empty($_GET['p']))&&(!empty($_GET['f']))&&(!empty($_GET['c'])))
 		{
 			if($bdd_clef==$clef)
 			{
-				
+
 				$query=$bdd->prepare('SELECT parrainv FROM parrains WHERE fillot=:r_idfillot AND id=:r_idparrain;');
 				$answer=$query->execute(array('r_idfillot'=>$idfillot, 'r_idparrain'=>$idparrain));
 				if($answer=$query->fetch())
@@ -93,7 +94,7 @@ if((!empty($_GET['p']))&&(!empty($_GET['f']))&&(!empty($_GET['c'])))
 					if($parrainv==0)
 					{
 						$fillotv=1;
-						
+
 						$query=$bdd->prepare('UPDATE fillots SET fillotv= :r_fillotv WHERE id=:r_idfillot AND parrain=:r_idparrain;');
 						if($answer=$query->execute(array('r_idfillot'=>$idfillot, 'r_idparrain'=>$idparrain,'r_fillotv'=>$fillotv)))
 						{
@@ -108,15 +109,15 @@ if((!empty($_GET['p']))&&(!empty($_GET['f']))&&(!empty($_GET['c'])))
 					else if($parrainv==1)
 					{
 						$fillotv=2;
-						
+
 						$query=$bdd->prepare('UPDATE fillots SET fillotv= :r_fillotv WHERE id=:r_idfillot AND parrain=:r_idparrain;');
-						
+
 							if($answer=$query->execute(array('r_idfillot'=>$idfillot, 'r_idparrain'=>$idparrain,'r_fillotv'=>$fillotv)))
-							{	
+							{
 								$query=$bdd->prepare('UPDATE parrains SET parrainv= :r_fillotv WHERE fillot=:r_idfillot AND id=:r_idparrain;');
 								if($answer=$query->execute(array('r_idfillot'=>$idfillot, 'r_idparrain'=>$idparrain,'r_fillotv'=>$fillotv)))
 								{
-								
+
 									echo "Ton parrainage a bien été confirmé ;-) ";
 									$query->closeCursor();
 								}
@@ -134,14 +135,14 @@ if((!empty($_GET['p']))&&(!empty($_GET['f']))&&(!empty($_GET['c'])))
 					{
 						echo 'Probleme de mise à jour de la base de donnée.';
 					}
-						
-					
+
+
 				}
 				else
 				{
 				echo 'Erreur concernant la base de donnée.';
 				}
-				
+
 			}
 			else
 			{
@@ -161,12 +162,12 @@ if((!empty($_GET['p']))&&(!empty($_GET['f']))&&(!empty($_GET['c'])))
 	{
 		echo "Problème de connexion à la base de donnée.";
 	}
-		
+
 }
 else
 {
 	echo "Erreur. Ton parrainage n'a pas été confirmé.";
-	
+
 }
 
 ?>

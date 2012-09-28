@@ -33,7 +33,7 @@
 	lang: 'fr'
  };
  </script>
- 
+
  <!--[if IE]>
 		<style type="text/css">
 			#menu {
@@ -64,13 +64,12 @@
 <div id='content'>
 <form method="post" action="treat.php" id="form1">
 	Choisis ton parrain/ta marraine. Il/Elle doit être dans la même école que toi. Vous recevrez ensuite un lien de confirmation sur vos adresses email telecom respectives.<br/><br/>
-	<label for="nom">Nom du parrain: </label><input id="parrain_nom" name="parrain_nom" onkeyup="lookup_nomp(getElementById('fillot_nom').value,getElementById('fillot_prenom').value,this.value);" onFocus="$('#suggestions2').hide();$('#suggestions3').hide();$('#suggestions4').hide();" size="20" type="text" autocomplete="off" />		
-	<label for="nom">Prénom du parrain: </label><input id="parrain_prenom" name="parrain_prenom" onkeyup="lookup_prenomp(getElementById('fillot_nom').value,getElementById('fillot_prenom').value,this.value);" onFocus="$('#suggestions1').hide();$('#suggestions3').hide();$('#suggestions4').hide();" size="20" type="text" autocomplete="off" />	<br/><br/>	
-	<label for="nom">Nom du fillot: </label><input id="fillot_nom" name="fillot_nom" onkeyup="lookup_nomf(getElementById('parrain_nom').value,getElementById('parrain_prenom').value,this.value);" onFocus="$('#suggestions4').hide();$('#suggestions1').hide();$('#suggestions2').hide();" size="20" type="text" autocomplete="off" />	
-	<label for="nom">Prénom du fillot: </label><input id="fillot_prenom" name="fillot_prenom" onkeyup="lookup_prenomf(getElementById('parrain_nom').value,getElementById('parrain_prenom').value,this.value);" onFocus="$('#suggestions3').hide();$('#suggestions1').hide();$('#suggestions2').hide();" size="20" type="text" autocomplete="off" /><br/><br/>		
+	<label for="nom">Nom du parrain: </label><input id="parrain_nom" name="parrain_nom" onkeyup="lookup_nomp(getElementById('fillot_nom').value,getElementById('fillot_prenom').value,this.value);" onFocus="$('#suggestions2').hide();$('#suggestions3').hide();$('#suggestions4').hide();" size="20" type="text" autocomplete="off" />
+	<label for="nom">Prénom du parrain: </label><input id="parrain_prenom" name="parrain_prenom" onkeyup="lookup_prenomp(getElementById('fillot_nom').value,getElementById('fillot_prenom').value,this.value);" onFocus="$('#suggestions1').hide();$('#suggestions3').hide();$('#suggestions4').hide();" size="20" type="text" autocomplete="off" />	<br/><br/>
+	<label for="nom">Nom du fillot: </label><input id="fillot_nom" name="fillot_nom" onkeyup="lookup_nomf(getElementById('parrain_nom').value,getElementById('parrain_prenom').value,this.value);" onFocus="$('#suggestions4').hide();$('#suggestions1').hide();$('#suggestions2').hide();" size="20" type="text" autocomplete="off" />
+	<label for="nom">Prénom du fillot: </label><input id="fillot_prenom" name="fillot_prenom" onkeyup="lookup_prenomf(getElementById('parrain_nom').value,getElementById('parrain_prenom').value,this.value);" onFocus="$('#suggestions3').hide();$('#suggestions1').hide();$('#suggestions2').hide();" size="20" type="text" autocomplete="off" /><br/><br/>
 
 
-	
 	<div class="suggestionsBox1" id="suggestions1" style="display: none;">
 		<img style="position: relative; top: -12px; left: 30px;" src="img/upArrow.png" alt="upArrow" />
 		<div class="suggestionList" id="autoSuggestionsList1"></div>
@@ -87,21 +86,40 @@
 		<img style="position: relative; top: -12px; left: 30px;" src="img/upArrow.png" alt="upArrow" />
 		<div class="suggestionList" id="autoSuggestionsList4"></div>
 	</div>
-	
+
 	<div id='captcha'>
-	  <script type="text/javascript"
-     src="http://www.google.com/recaptcha/api/challenge?k=6LcqnMgSAAAAALZPlNk1kNI9o8hkWVMU1pOZOQ-t">
-  </script>
-  <noscript>
-     <iframe src="http://www.google.com/recaptcha/api/noscript?k=6LcqnMgSAAAAALZPlNk1kNI9o8hkWVMU1pOZOQ-t"
-         height="300" width="500" frameborder="0"></iframe><br>
-     <textarea name="recaptcha_challenge_field" rows="3" cols="40">
-     </textarea>
-     <input type="hidden" name="recaptcha_response_field"
-         value="manual_challenge">
-  </noscript>
+        <?php
+            require_once('recaptchalib.php');
+
+            // Get a key from https://www.google.com/recaptcha/admin/create
+            $publickey = "6LffA9ISAAAAABgPEMiOjUIGQW0yb5evtd2frIqu";
+            $privatekey = "6LffA9ISAAAAAFwUYq8QA-2uyKLE3I5VGvXHTRrO";
+
+            # the response from reCAPTCHA
+            $resp = null;
+            # the error code from reCAPTCHA, if any
+            $error = null;
+
+            # was there a reCAPTCHA response?
+            if ($_POST["recaptcha_response_field"]) {
+                    $resp = recaptcha_check_answer ($privatekey,
+                                                    $_SERVER["REMOTE_ADDR"],
+                                                    $_POST["recaptcha_challenge_field"],
+                                                    $_POST["recaptcha_response_field"]);
+
+                    if ($resp->is_valid) {
+                            echo "You got it!";
+                    } else {
+                            # set the error code so that we can display it
+                            $error = $resp->error;
+                    }
+            }
+            echo recaptcha_get_html($publickey, $error);
+        ?>
   </div>
-  <input type="submit" class="submit" id="submit" value="Match!" /><br/>
+
+<input type="submit" class="submit" id="submit" value="Match!" /><br/>
+
 </form>
 </div>
 </div>
