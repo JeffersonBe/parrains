@@ -32,6 +32,7 @@
 </head>
 <body>
   <div class="row">
+  <?php include('includes/menu.php'); ?>
     <p class="ten columns centered">Choisis ton parrain/ta marraine. Il/Elle doit être dans la même école que toi. Vous recevrez ensuite un lien de confirmation sur vos adresses email telecom respectives.</p>
             <div class="twelve columns">
                 <form method="post" action="" class="six columns centered">
