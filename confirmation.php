@@ -34,15 +34,22 @@
   <div class="row">
     <?php
         include('connect_settings.php');
-        $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-        $bdd = new PDO('mysql:host='.$hostdb.';dbname='.$namedb, $logindb, $passworddb, $pdo_options);
+
+        try
+        {
+            $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
+            $bdd = new PDO('mysql:host='.$hostdb.';dbname='.$namedb, $logindb, $passworddb, $pdo_options);
+        }
+        catch (Exception $e)
+        {
+            die('Erreur : ' . $e->getMessage());
+        }
 
         // On récupère le traitement à effectuer (1 pour parrainage et 2 pour parrainage coeur
         if(!empty($_GET['n']))
         {
             $idCoeur = $_GET['n'];
         }
-
 
         // On effectue le parrainage
         if($idCoeur==1)

@@ -96,8 +96,15 @@ else
     // Connexion à la base de données
     include('connect_settings.php');
 
-    $bdd = new PDO('mysql:host='.$hostdb.';dbname='.$namedb, $logindb, $passworddb);
-    // $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    try
+    {
+        $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
+        $bdd = new PDO('mysql:host='.$hostdb.';dbname='.$namedb, $logindb, $passworddb, $pdo_options);
+    }
+    catch (Exception $e)
+    {
+        die('Erreur : ' . $e->getMessage());
+    }
 
     // Initialisation de la clé
     $cle = md5(uniqid(rand(), true));
