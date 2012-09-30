@@ -27,21 +27,16 @@
 </head>
 <body>
   <div class="row">
-    <?php
-        function mail_utf8($to, $subject, $message, $header)
-        {
-          $header_ = 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/html; charset=UTF-8' . "\r\n";
-          mail($to, '=?UTF-8?B?'.base64_encode($subject).'?=', $message, $header_ . $header);
-        }
+<?php
+    require_once('recaptchalib.php');
+    $privatekey = "6LffA9ISAAAAAFwUYq8QA-2uyKLE3I5VGvXHTRrO";
+    $resp = recaptcha_check_answer ($privatekey,
+    							$_SERVER["REMOTE_ADDR"],
+    							$_POST["recaptcha_challenge_field"],
+    							$_POST["recaptcha_response_field"]);
 
-require_once('recaptchalib.php');
-$privatekey = "6LffA9ISAAAAAFwUYq8QA-2uyKLE3I5VGvXHTRrO";
-$resp = recaptcha_check_answer ($privatekey,
-							$_SERVER["REMOTE_ADDR"],
-							$_POST["recaptcha_challenge_field"],
-							$_POST["recaptcha_response_field"]);
-
-if (!$resp->is_valid) {
+if (!$resp->is_valid)
+{
 // What happens when the CAPTCHA was entered incorrectly
     die ('
         <div class="six columns centered">
@@ -52,14 +47,15 @@ if (!$resp->is_valid) {
         </div>
     ');
 }
-
 else
 {
     include('includes/fonctions.php');
 
-    $email = $_POST['emailFillot'];
-
-    if(!mailValide($email) && !mailINT($email))
+    if($_POST['emailFillot']==$_POST['emailParrain'])
+    {
+        die('L\'email du parrain est identique à celui du parrain');
+    }
+    elseif(!mailValide($_POST['emailFillot']) && !mailINT($_POST['emailFillot']))
     {
     		die("
                 <div class=\"six columns centered\">
@@ -70,14 +66,7 @@ else
                 </div>
     		");
     }
-    else
-    {
-        $emailFillot=$_POST['emailFillot'];
-    }
-
-    $email = $_POST['emailParrain'];
-
-    if(!mailValide($email) && !mailINT($email))
+    elseif(!mailValide($_POST['emailParrain']) && !mailINT($_POST['emailParrain']))
     {
     		die("
                 <div class=\"six columns centered\">
@@ -90,6 +79,7 @@ else
     }
     else
     {
+        $emailFillot=$_POST['emailFillot'];
         $emailParrain=$_POST['emailParrain'];
     }
 
@@ -102,122 +92,270 @@ else
     $prenomParrain=$_POST['prenomParrain'];
     $statusParrain='parrain';
 
+
     // Connexion à la base de données
     include('connect_settings.php');
 
-    $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-    $bdd = new PDO('mysql:host='.$hostdb.';dbname='.$namedb, $logindb, $passworddb, $pdo_options);
+    $bdd = new PDO('mysql:host='.$hostdb.';dbname='.$namedb, $logindb, $passworddb);
+    // $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // On regarde dans la base de données si les utilisateurs existent
-    $query=$bdd->prepare('SELECT id, nom, prenom, email, status FROM Utilisateur WHERE nom= :rNom AND prenom= :rPrenom; AND email= ;rEmail AND status= :rStatus;');
+    // Initialisation de la clé
+    $cle = md5(uniqid(rand(), true));
+    $cleFillot = md5(uniqid(rand(), true));
+    $cleParrain = md5(uniqid(rand(), true));
+
+    // On regarde si le parrain et le fillot sont déjà actif et validé dans la table parrainage
+    $query=$bdd->prepare('SELECT nomFillot, prenomFillot, nomParrain, prenomParrain FROM parrainage WHERE nomFillot= :rNomFillot AND prenomFillot= :rPrenomFillot AND nomParrain= :rNomParrain AND prenomParrain= :rPrenomParrain');
     $query->execute(
-                array(
-                'rNom' => $nomParrain,
-                'rPrenom' => $prenomParrain,
-                'rEmail' => $emailParrain,
-                'rStatus' => $statusParrain
-                ));
-    $flag=0;
+        array(
+            'rNomFillot' => $nomFillot,
+            'rPrenomFillot' => $prenomFillot,
+            'rNomParrain' => $nomParrain,
+            'rPrenomParrain' => $prenomParrain
+        ));
 
-    if($answer=$query->fetch())
+    if($verifP=$query->fetch())
     {
-    	$flag=1;
-    	$idParrain=$answer['id'];
-    	$nomParrain=$answer['nom'];
-    	$prenomParrain=$answer['prenom'];
+        die('Vous avez déjà fait une demande de parrainage, un parrain ne peut pas être un parrain de cœur');
+    }
+    $query = $query->closeCursor();
 
-    	$idfillotpascoeu=$answer['fillot'];
-    	$fillotcoeur=$answer['fillotcoeur'];
+    // On n'a pas trouvé de parrainage
+    // On cherche dans la base de données si le parrain existe
+    $query=$bdd->prepare('SELECT id, nom, prenom, email, statut FROM user WHERE email = ?');
+    $query->execute(array($emailParrain));
 
-    	$query=$bdd->prepare('SELECT id, nom, prenom, status FROM  WHERE nom= :rNom AND prenom= :rPrenom; AND status= :rStatus;');
-    	$query->execute(
-                array(
-                'rNom' => $nomParrain,
-                'rPrenom' => $prenomParrain,
-                'rStatus' => $statusParrain
-                ));
+    if($answerP=$query->fetch()) // Si le parrain existe
+    {
 
-    	if(($answer=$query->fetch())&&($parrainv!=2))
+    	if($answerP['statut'] == 'fillot')
     	{
-    		$fillotv=$answer['coeurv'];
-    		$idparrainpascoeur=$answer['parrain'];
+            die('Un parrain ne peut pas être un fillot');
+    	}
+    	else // On cherche si le fillot existe déjà
+    	{
+        	$query=$bdd->prepare('SELECT id, nom, prenom, email FROM user WHERE email= ?');
+            $query->execute(array($emailFillot));
 
-    		if($fillotv!=2)
-    		{
-    			$flag=2;
-    			$idfillot=$answer['id'];
-    			$parraincoeur=$answer['parraincoeur'];
-    		}
+            if($answerF=$query->fetch()) // Si le Fillot existe
+            {
+                // On regarde si le fillot ou le parrain a déjà un parrainage en cours
+                $query=$bdd->prepare('SELECT nomFillot, prenomFillot, nomParrain, prenomParrain FROM parrainage_coeur WHERE nomFillot= :rNomFillot AND prenomFillot= :rPrenomFillot actif = :actif OR nomParrain= :rNomParrain AND prenomParrain= :rPrenomParrain actif = :actif');
+                $query->execute(
+                    array(
+                    'rNomFillot' => $nomFillot,
+                    'rPrenomFillot' => $prenomFillot,
+                    'rNomParrain' => $nomParrain,
+                    'rPrenomParrain' => $prenomParrain,
+                    'actif' => 2
+                    ));
+                if($answerPc=$query->fetch())
+                {
+                    $idFillot = $answerF['id'];
+                    $idParrain = $answerP['id'];
+
+                    $query=$bdd->prepare('INSERT INTO parrainage_coeur(idFillot, nomFillot, prenomFillot, idParrain, nomParrain, prenomParrain, actif, cle) VALUES(:idFillot, :nomFillot, :prenomFillot, :idParrain, :nomParrain, :prenomParrain, :actif, :cle)');
+                    $query->execute(
+                            array(
+                                'idFillot' => $idFillot,
+                                'nomFillot' => $prenomFillot,
+                                'prenomFillot' => $prenomFillot,
+                                'idParrain' => $idParrain,
+                                'nomParrain' => $nomParrain,
+                                'prenomParrain' => $prenomParrain,
+                                'actif' => 0,
+                                'cle' => $cle
+                            ));
+
+                        echo('Ajout du Parrainage de Coeur [Test 1]');
+                }
+                else
+                {
+                    if($answerPc['actif']==0)
+                    {
+                        die("Vous avez une demande de cœur, mais elle n'est pas validé");
+                    }
+                    elseif($answerPc['actif']==1)
+                    {
+                        die("Vous avez une demande de cœur, mais il manque une validation");
+                    }
+                    elseif($answerPc['actif']==2)
+                    {
+                        die("Votre demande de cœur est déjà validé");
+                    }
+                }
+            }
+            else // Le fillot n'existe pas on le crée
+            {
+                $query=$bdd->prepare('INSERT INTO user(nom, prenom, email, statut, actif, cle) VALUES (:nom, :prenom, :email, :status, :actif, :cle)');
+                $query->execute(
+                        array(
+                        'nom' => $nomFillot,
+                        'prenom' => $prenomFillot,
+                        'email' => $emailFillot,
+                        'status' => $statusFillot,
+                        'actif' => 0,
+                        'cle' => $cleFillot
+                        ));
+                echo("Nous vous avons ajouté en tant que".$statusFillot."");
+
+                // On sélectionne le fillot que l'on vient de créer
+                $query=$bdd->prepare('SELECT id, nom, prenom, email FROM user WHERE email = ?');
+                $query->execute(array($emailFillot));
+                $answerF=$query->fetch();
+
+                $idFillot = $answerF['id'];
+                $idParrain = $answerP['id'];
+
+                // On ajoute le parrainage
+                $query=$bdd->prepare('INSERT INTO parrainage_coeur(idFillot, nomFillot, prenomFillot, idParrain, nomParrain, prenomParrain, actif, cle) VALUES (:idFillot, :nomFillot, :prenomFillot, :idParrain, :nomParrain, :prenomParrain, :actif, :cle)');
+                $query->execute(
+                    array(
+                    'idFillot' => $idFillot,
+                    'nomFillot' => $prenomFillot,
+                    'prenomFillot' => $prenomFillot,
+                    'idParrain' => $idParrain,
+                    'nomParrain' => $nomParrain,
+                    'prenomParrain' => $prenomParrain,
+                    'actif' => 0,
+                    'cle' => $cle
+                    ));
+
+                echo('Ajout du Parrainage de Coeur');
+            }
     	}
     }
-
-// L'utilisateur n'existe pas dans notre base de données, on l'ajoute
-if($flag==0)
-{
-
-}
-else if ($flag==1){echo "Erreur dans le choix du fillot de coeur";}
-
-else if($idparrainpascoeur==$idparrain){echo "Le parrain de coeur doit être différent du parrain.";}
-else if($idfillotpascoeur==$idfillot){echo "Le fillot de coeur doit être différent du fillot.";}
-
-else
-{
-    if($fillotcoeurv==1)
+    else // Le parrain n'existe pas dans notre base de données, on l'ajoute
     {
-    	$query=$bdd->prepare('UPDATE fillots SET parraincoeur=\'0\', coeurv=\'0\' WHERE id= :r_fillot;');
-    	$query->execute(array( 'r_fillot'=>$fillotcoeur));
+        $query=$bdd->prepare('INSERT INTO user(nom, prenom, email, statut, actif, cle) VALUES(:nom, :prenom, :email, :status, :actif, :cle)');
+        $query->execute(
+                    array(
+                    'nom' => $nomParrain,
+                    'prenom' => $prenomParrain,
+                    'email' => $emailParrain,
+                    'status' => $statusParrain,
+                    'actif' => 0,
+                    'cle' => $cleParrain
+                    ));
+
+        // On vérifie si le fillot existe déjà
+        $query=$bdd->prepare('SELECT id, nom, prenom, email FROM user WHERE email = ?');
+        $query->execute(array($emailFillot));
+
+        if($answerP = $query->fetch()) // On a crée le parrain et on a le fillot
+        {
+
+            // On vérifie si le parrain ou le fillot a déjà un fillot de cœur "validé" dans la table Parrainage coeur
+            $query=$bdd->prepare('SELECT nomFillot, prenomFillot, nomParrain, prenomParrain FROM parrainage_coeur WHERE nomFillot= :rNomFillot AND prenomFillot= :rPrenomFillot actif = :actif OR nomParrain= :rNomParrain AND prenomParrain= :rPrenomParrain actif = :actif');
+            $query->execute(
+                    array(
+                    'rNomFillot' => $nomFillot,
+                    'rPrenomFillot' => $prenomFillot,
+                    'rNomParrain' => $nomParrain,
+                    'rPrenomParrain' => $prenomParrain,
+                    'actif' => 2
+                    ));
+            $verificationC=$query->fetch();
+
+            if($verificationC=$query->fetch())
+            {
+                die('Vous avez déjà un fillot de cœur et vous ne pouvez avoir qu\'un seul parrain ou fillot de coeur');
+            }
+
+            $idFillot = $answerF['id'];
+            $idParrain = $answerP['id'];
+
+            $query=$bdd->prepare('INSERT INTO parrainage_coeur(idFillot, nomFillot, prenomFillot, idParrain, nomParrain, prenomParrain, actif, cle) VALUES(:idFillot, :nomFillot, :prenomFillot, :idParrain, :nomParrain, :prenomParrain, :actif, :cle)');
+            $query->execute(
+                    array(
+                    'idFillot' => $idFillot,
+                    'nomFillot' => $prenomFillot,
+                    'prenomFillot' => $prenomFillot,
+                    'idParrain' => $idParrain,
+                    'nomParrain' => $nomParrain,
+                    'prenomParrain' => $prenomParrain,
+                    'actif' => 0,
+                    'cle' => $cle
+                    ));
+
+            echo('Ajout du Parrainage de Coeur');
+        }
+        else // On crée le fillot
+        {
+            $query=$bdd->prepare('INSERT INTO user(nom, prenom, email, statut, actif, cle) VALUES(:nom, :prenom, :email, :status, :actif, :cle)');
+            $query->execute(
+                        array(
+                        'nom' => $nomFillot,
+                        'prenom' => $prenomFillot,
+                        'email' => $emailFillot,
+                        'status' => $statusFillot,
+                        'actif' => 0,
+                        'cle' => $cleFillot
+                        ));
+
+            echo("Nous vous avons ajouté en tant que".$statusFillot."");
+
+
+            // On sélectionne le parrain que l'on vient de créer précedemment
+            $query=$bdd->prepare('SELECT id, nom, prenom, email FROM user WHERE email = ?');
+            $query->execute(array($emailFillot));
+            $answerF=$query->fetch();
+
+            // On sélectionne le fillot que l'on vient de créer
+            $query=$bdd->prepare('SELECT id, nom, prenom, email FROM user WHERE email = ?');
+            $query->execute(array($emailParrain));
+            $answerP=$query->fetch();
+
+            $idFillot = $answerF['id'];
+            $idParrain = $answerP['id'];
+
+            $query=$bdd->prepare('INSERT INTO parrainage_coeur(idFillot, nomFillot, prenomFillot, idParrain, nomParrain, prenomParrain, actif, cle) VALUES(:idFillot, :nomFillot, :prenomFillot, :idParrain, :nomParrain, :prenomParrain, :actif, :cle)');
+            $query->execute(
+                    array(
+                    'idFillot' => $idFillot,
+                    'nomFillot' => $nomFillot,
+                    'prenomFillot' => $prenomFillot,
+                    'idParrain' => $idParrain,
+                    'nomParrain' => $nomParrain,
+                    'prenomParrain' => $prenomParrain,
+                    'actif' => 0,
+                    'cle' => $cle
+                    ));
+            echo('Ajout du parrainage');
+        }
     }
 
-    if($parraincoeurv==1)
-    {
-    	$query=$bdd->prepare('UPDATE parrains SET fillotcoeur=\'0\', coeurv=\'0\' WHERE id= :r_parrain;');
-    	$query->execute(array( 'r_parrain'=>$parraincoeur));
-    }
-
-    	//Update et envoi du mail pour le fillot
-    	$clef = md5(microtime(NULL)*100000);
-    	$query=$bdd->prepare('UPDATE ParrainnageCoeur SET parraincoeur=:r_parrain, coeurv=\'0\', clefcoeur=:r_clef WHERE id= :r_id;');
-    	$query->execute(array('r_id' => $idfillot, 'r_parrain'=>$idparrain,'r_clef'=>$clef));
-
-    	$sujet = "[PARRAINAGE] Confirme que ton parrain de coeur est bien ".$parrain_prenom." ".$parrain_nom."!" ;
+        //Envoi du mail pour le fillot
+    	$sujet = "[PARRAINAGE] Confirme que ton parrain de coeur est bien ".$prenomParrain." ".$nomParrain."!" ;
     	$headers = 'From: Staff Hypnoz <contact@showtime2012.com>'."\r\n";
-    	$message="<img src='http://www.showtime2012.com/parrains/img/logo_hypnoz.jpg' width='395' height='200' style='margin-right:auto;margin-left:auto;text-align:center;'/><br></br><br></br>
-    	Salut ".$fillot_prenom." ".$fillot_nom.",<br></br><br></br>Pour confirmer que ton parrain de coeur est bien ".$parrain_prenom." ".$parrain_nom.", clique ici:<br></br>
+    	$message="<img src='http://www.showtime2012.com/parrains/img/logo.jpg' width='395' height='200' style='margin-right:auto;margin-left:auto;text-align:center;'/><br></br><br></br>
+    	Salut ".$prenomFillot." ".$nomFillot.",<br></br><br></br>Pour confirmer que ton parrain de coeur est bien ".$prenomParrain." ".$nomParrain.", clique ici:<br></br>
 
-    	<a href=http://www.showtime2012.com/parrains/confirmationfillotcoeur.php?p=".urlencode($idparrain)."&f=".urlencode($idfillot)."&c=".urlencode($clef).">http://www.showtime2012.com/parrains/confirmationfillotcoeur.php?p=".urlencode($idparrain)."&f=".urlencode($idfillot)."&c=".urlencode($clef)." </a><br></br><br></br>
+    	<a href=http://www.showtime2012.com/parrains/confirmationfillotcoeur.php?p=".urlencode($answerF['id'])."&f=".urlencode($answerP['id'])."&c=".urlencode($cle).">http://www.showtime2012.com/parrains/confirmationfillotcoeur.php?p=".urlencode($answerF['idFillot'])."&f=".urlencode($answerP['idParrain'])."&c=".urlencode($clefFillot)." </a><br></br><br></br>
 
     	Attention, si tu ne valides pas ton inscription dans les 24h, elle sera effacée.<br></br>
 
     	<br><br/>Bisous tout partout,<br><br/><br><br/>Le Staff Showtime";
+    	mail_utf8($emailFillot, $sujet, $message, $headers);
 
-        $find = array('à','â','ä','é','è','ê','ë','î','ï','ç','ù','ü','ô','ö');
-        $replace = array('a','a','a','e','e','e','e','i','i','c','u','u','o','o');
-    	$emailecole=strtolower($fillot_prenom).'.'.strtolower($fillot_nom)."@it-sudparis.eu";
-    	mail_utf8($emailecole, $sujet, $message, $headers) ; // Envoi du mail sur l'adresse de l'école
-
-    	//Update et envoi du mail pour le parrain
-    	$clef = md5(microtime(NULL)*100000);
-    	$query=$bdd->prepare('UPDATE parrains SET fillotcoeur=:r_fillot, coeurv=\'0\', clefcoeur=:r_clef WHERE id= :r_id;');
-    	$query->execute(array('r_id' => $idparrain, 'r_fillot'=>$idfillot,'r_clef'=>$clef));
-
-    	$sujet = "[PARRAINAGE] Confirme que ton fillot de coeur est bien ".$fillot_prenom." ".$fillot_nom."!" ;
+    	//Envoi du mail pour le parrain
+    	$sujet = "[PARRAINAGE] Confirme que ton fillot de coeur est bien ".$prenomFillot." ".$nomFillot."!" ;
     	$headers = 'From: Staff Hypnoz <contact@showtime2012.com>'."\r\n";
-    	$message="<img src='http://www.showtime2012.com/parrains/img/logo_hypnoz.jpg' width='395' height='200' style='margin-right:auto;margin-left:auto;text-align:center;'/><br></br><br></br>
-    	Salut ".$parrain_prenom." ".$parrain_nom.",<br></br><br></br>Pour confirmer que ton fillot est bien ".$fillot_prenom." ".strtoupper($fillot_nom).", clique ici:<br></br>
+    	$message="<img src='http://www.showtime2012.com/parrains/img/logo.jpg' width='395' height='200' style='margin-right:auto;margin-left:auto;text-align:center;'/><br></br><br></br>
+    	Salut ".$prenomParrain." ".$nomParrain.",<br></br><br></br>Pour confirmer que ton fillot est bien ".strtoupper($prenomFillot)." ".strtoupper($nomFillot).", clique ici:<br></br>
 
-    	<a href=http://www.showtime2012.com/parrains/confirmationparraincoeur.php?p=".urlencode($idparrain)."&f=".urlencode($idfillot)."&c=".urlencode($clef).">http://www.showtime2012.com/parrains/confirmationparraincoeur.php?p=".urlencode($idparrain)."&f=".urlencode($idfillot)."&c=".urlencode($clef)." </a><br></br><br></br>
+    	<a href=http://www.showtime2012.com/parrains/confirmationparraincoeur.php?p=".urlencode($answer['id'])."&f=".urlencode($answerF['id'])."&c=".urlencode($cle).">http://www.showtime2012.com/parrains/confirmationparraincoeur.php?p=".urlencode($id)."&f=".urlencode($idfillot)."&c=".urlencode($cle)." </a><br></br><br></br>
 
     	Attention, si tu ne valides pas ton inscription dans les 24h, elle sera effacée.<br></br>
 
-    	<br><br/>Bisous tout partout,<br><br/><br><br/>Le Staff Hypnoz";
-    	$emailecole=str_replace($find,$replace,strtolower($parrain_prenom)).'.'.str_replace($find,$replace,strtolower($parrain_nom))."@it-sudparis.eu";
-    	mail_utf8($emailecole, $sujet, $message, $headers) ; // Envoi du mail sur l'adresse de l'école
+    	<br><br/>Bisous tout partout,<br><br/><br><br/>Le Staff Showtime";
+    	mail_utf8($emailParrain, $sujet, $message, $headers);
 
-    		echo "Félicitation ".$parrain_prenom." ".strtoupper($parrain_nom)." et ".$fillot_prenom." ".$fillot_nom.", vous avez été enregistrés comme parrain et fillot. Un email va être envoyé sur votre adresse Telecom, n'oubliez pas d'y répondre pour confirmer le parrainage.";
-    }
+    	echo(' ?>
+    <"Félicitation ".$prenomParrain." ".strtoupper($nomParrain)." et ".$prenomFillot." ".$nomFillot.", vous avez été enregistrés comme parrain et fillot. Un email va être envoyé sur votre adresse Telecom, n'oubliez pas d'y répondre pour confirmer le parrainage.";
+    <?php ');
+
 }
-
 ?>
   <!-- Included JS Files (Compressed) -->
   <script src="javascripts/jquery.js"></script>

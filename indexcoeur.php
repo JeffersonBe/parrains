@@ -32,6 +32,7 @@
 </head>
 <body>
   <div class="row">
+    <?php include('includes/menu.php'); ?>
     <p class="ten columns centered">Choisis ton parrain/ta marraine de coeur. Vous recevrez ensuite un lien de confirmation sur vos adresses email telecom respectives.</p>
             <div class="twelve columns">
                 <form method="post" action="treatcoeur.php" class="six columns centered">
@@ -84,7 +85,6 @@
                     </div>
                     <input type="submit" class="button large" value="Match!"/>
                 </form>
-
   </div>
   <!-- Included JS Files (Compressed) -->
   <script src="javascripts/jquery.js"></script>
