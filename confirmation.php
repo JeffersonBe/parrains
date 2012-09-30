@@ -45,7 +45,7 @@
 
 
         // On effectue le parrainage
-        if($idCoeur='1')
+        if($idCoeur==1)
         {
             if((!empty($_GET['p']))&&(!empty($_GET['f']))&&(!empty($_GET['c'])))
             {
@@ -121,7 +121,7 @@
                 echo "Erreur. Ton parrainage n'a pas été confirmé.";
             }
         }
-        elseif(!empty($_GET['m']))
+        elseif($idCoeur==2)
         {
             if((!empty($_GET['p']))&&(!empty($_GET['f']))&&(!empty($_GET['c'])))
             {
