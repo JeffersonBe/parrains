@@ -10,20 +10,7 @@
   <!-- Set the viewport width to device width for mobile -->
   <meta name="viewport" content="width=device-width" />
   <title>Welcome to Foundation</title>
-
-  <!-- Included CSS Files (Uncompressed) -->
-  <!--
-  <link rel="stylesheet" href="stylesheets/foundation.css">
-  -->
-
-  <!-- Included CSS Files (Compressed) -->
-  <link rel="stylesheet" href="stylesheets/foundation.min.css">
-  <link rel="stylesheet" href="stylesheets/app.css">
-  <script src="javascripts/modernizr.foundation.js"></script>
-  <!-- IE Fix for HTML5 Tags -->
-  <!--[if lt IE 9]>
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
+  <?php include('includes/head.php'); ?>
 </head>
 <body>
   <div class="row">
@@ -335,7 +322,7 @@ else
     	$message="<img src='http://www.showtime2012.com/parrains/img/logo.jpg' width='395' height='200' style='margin-right:auto;margin-left:auto;text-align:center;'/><br></br><br></br>
     	Salut ".$prenomParrain." ".$nomParrain.",<br></br><br></br>Pour confirmer que ton fillot est bien ".strtoupper($prenomFillot)." ".strtoupper($nomFillot).", clique ici:<br></br>
 
-    	<a href=http://www.showtime2012.com/parrains/confirmationparraincoeur.php?p=".urlencode($answer['id'])."&f=".urlencode($answerF['id'])."&c=".urlencode($cle).">http://www.showtime2012.com/parrains/confirmationparraincoeur.php?p=".urlencode($id)."&f=".urlencode($idfillot)."&c=".urlencode($cle)." </a><br></br><br></br>
+    	<a href=http://www.showtime2012.com/parrains/confirmation.php?t=".urlencode($idCoeur)."&?p=".urlencode($idFillot)."&f=".urlencode($idParrain)."&c=".urlencode($cle).">http://www.showtime2012.com/parrains/confirmationfillotcoeur.php?p=".urlencode($idFillot)."&f=".urlencode($idParrain)."&c=".urlencode($cle)." </a><br></br><br></br>
 
     	Attention, si tu ne valides pas ton inscription dans les 24h, elle sera effacée.<br></br>
 
