@@ -278,28 +278,26 @@ else
         //Envoi du mail pour le fillot
     	$sujet = "[PARRAINAGE] Confirme que ton parrain de coeur est bien ".$prenomParrain." ".$nomParrain."!" ;
     	$headers = 'From: Staff Showtime <contact@showtime2012.com>'."\r\n";
+    	$headers .= 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/html; charset=UTF-8' . "\r\n";
     	$message="<img src='http://www.showtime2012.com/parrains/img/logo.jpg' width='395' height='200' style='margin-right:auto;margin-left:auto;text-align:center;'/><br></br><br></br>
     	Salut ".$prenomFillot." ".$nomFillot.",<br></br><br></br>Pour confirmer que ton parrain de coeur est bien ".$prenomParrain." ".$nomParrain.", clique ici:<br></br>
 
     	<a href=http://www.showtime2012.com/parrains/confirmation.php?t=".urlencode($idCoeur)."&?p=".urlencode($idFillot)."&f=".urlencode($idParrain)."&c=".urlencode($cle).">http://www.showtime2012.com/parrains/confirmationfillotcoeur.php?p=".urlencode($idFillot)."&f=".urlencode($idParrain)."&c=".urlencode($cle)." </a><br></br><br></br>
 
-    	Attention, si tu ne valides pas ton inscription dans les 24h, elle sera effacée.<br></br>
-
     	<br><br/>Bisous tout partout,<br><br/><br><br/>Le Staff Showtime";
-    	mail_utf8($emailFillot, $sujet, $message, $headers);
+    	mail($emailFillot, $sujet, $message, $headers);
 
     	//Envoi du mail pour le parrain
     	$sujet = "[PARRAINAGE] Confirme que ton fillot de coeur est bien ".$prenomFillot." ".$nomFillot."!" ;
     	$headers = 'From: Staff Showtime <contact@showtime2012.com>'."\r\n";
+    	$headers .= 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/html; charset=UTF-8' . "\r\n";
     	$message="<img src='http://www.showtime2012.com/parrains/img/logo.jpg' width='395' height='200' style='margin-right:auto;margin-left:auto;text-align:center;'/><br></br><br></br>
     	Salut ".$prenomParrain." ".$nomParrain.",<br></br><br></br>Pour confirmer que ton fillot est bien ".strtoupper($prenomFillot)." ".strtoupper($nomFillot).", clique ici:<br></br>
 
-    	<a href=http://www.showtime2012.com/parrains/confirmationparraincoeur.php?p=".urlencode($answer['id'])."&f=".urlencode($answerF['id'])."&c=".urlencode($cle).">http://www.showtime2012.com/parrains/confirmationparraincoeur.php?p=".urlencode($id)."&f=".urlencode($idfillot)."&c=".urlencode($cle)." </a><br></br><br></br>
-
-    	Attention, si tu ne valides pas ton inscription dans les 24h, elle sera effacée.<br></br>
+    	<a href=http://www.showtime2012.com/parrains/confirmation.php?t=".urlencode($idCoeur)."&?p=".urlencode($idFillot)."&f=".urlencode($idParrain)."&c=".urlencode($cle).">http://www.showtime2012.com/parrains/confirmationfillotcoeur.php?p=".urlencode($idFillot)."&f=".urlencode($idParrain)."&c=".urlencode($cle)." </a><br></br><br></br>
 
     	<br><br/>Bisous tout partout,<br><br/><br><br/>Le Staff Showtime";
-    	mail_utf8($emailParrain, $sujet, $message, $headers);
+    	mail($emailParrain, $sujet, $message, $headers);
 
     	echo("Félicitation ".$prenomParrain." ".strtoupper($nomParrain)." et ".$prenomFillot." ".strtoupper($nomFillot).", vous avez été enregistrés comme parrain et fillot. Un email va être envoyé sur votre adresse Telecom, n'oubliez pas d'y répondre pour confirmer le parrainage.");
 }
