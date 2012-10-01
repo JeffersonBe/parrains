@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿q<!DOCTYPE html>
 
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
@@ -30,9 +30,9 @@
         }
 
         // On récupère le traitement à effectuer (1 pour parrainage et 2 pour parrainage coeur
-        if(!empty($_GET['n']))
+        if(!empty($_GET['t']))
         {
-            $idCoeur = $_GET['n'];
+            $idCoeur = $_GET['t'];
         }
 
         // On effectue le parrainage
@@ -46,7 +46,7 @@
 
                 // On regarde si la clé, l'id du parrain et du fillot correspondent
                 $query=$bdd->prepare('SELECT actif, cle FROM parrainage WHERE id=:rIdFillot AND parraincoeur=:rIdParrain;');
-                $answer=$query->execute(array('rIdFillot'=>$idfillot, 'rIdParrain'=>$idparrain));
+                $answer=$query->execute(array('rIdFillot'=>$idFillot, 'rIdParrain'=>$idParrain));
 
                 if($answer=$query->fetch())
                 {
@@ -121,7 +121,7 @@
                 $idFillot=addslashes($_GET['f']);
 
                 $query=$bdd->prepare('SELECT actif, cle FROM parrainage_coeur WHERE id=:r_idfillot AND parraincoeur=:r_idparrain;');
-                $answer=$query->execute(array('r_idfillot'=>$idfillot, 'r_idparrain'=>$idparrain));
+                $answer=$query->execute(array('r_idfillot'=>$idFillot, 'r_idparrain'=>$idParrain));
                 if($answer=$query->fetch())
                 {
                     $cleBdd=$answer['clef'];
