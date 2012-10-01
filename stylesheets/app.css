@@ -8,6 +8,10 @@
 :: Page Name 2
 */
 
+p {
+    color: #f8f8f8;
+}
+
 /* Autocomplete Style */
 
 .ac_results {
