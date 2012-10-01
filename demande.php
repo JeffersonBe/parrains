@@ -152,7 +152,7 @@ else
                     die('Un fillot ne peut pas être un parrain');
                 }
                 // On regarde si le fillot et le parrain a déjà un parrainage en cours
-                $query=$bdd->prepare('SELECT nomFillot, prenomFillot, nomParrain, prenomParrain FROM parrainage WHERE nomFillot= :rNomFillot AND prenomFillot= :rPrenomFillot AND nomParrain= :rNomParrain AND prenomParrain= :rPrenomParrain');
+                $query=$bdd->prepare('SELECT nomFillot, prenomFillot, nomParrain, prenomParrain FROM parrainage WHERE nomFillot= :rNomFillot AND prenomFillot= :rPrenomFillot OR nomParrain= :rNomParrain AND prenomParrain= :rPrenomParrain');
                 $query->execute(
                     array(
                     'rNomFillot' => $nomFillot,
@@ -162,6 +162,10 @@ else
                     ));
 
                 if($answerPc=$query->fetch())
+                {
+                    die('Vous ne pouvez avoir qu\'un seul parrain');
+                }
+                else
                 {
                     $idFillot = $answerF['id'];
                     $idParrain = $answerP['id'];
@@ -179,21 +183,6 @@ else
                                 'cle' => $cle
                             ));
                 }
-                else
-                {
-                    if($answerPc['actif']==0)
-                    {
-                        die("Vous avez une demande en commun, mais elle n'est pas validé");
-                    }
-                    elseif($answerPc['actif']==1)
-                    {
-                        die("Vous avez une demande en commun, mais il manque une validation");
-                    }
-                    elseif($answerPc['actif']==2)
-                    {
-                        die("Votre demande est déjà validé");
-                    }
-                }
             }
             else // Le fillot n'existe pas on le crée
             {
@@ -207,7 +196,6 @@ else
                         'actif' => 0,
                         'cle' => $cleFillot
                         ));
-                echo("Nous vous avons ajouté en tant que".$statusFillot."");
 
                 // On sélectionne le fillot que l'on vient de créer
                 $query=$bdd->prepare('SELECT id, nom, prenom, email FROM user WHERE email = ?');
@@ -254,7 +242,7 @@ else
         {
 
             // On vérifie si le parrain et le fillot ont déjà une demande dans la table Parrainage
-            $query=$bdd->prepare('SELECT nomFillot, prenomFillot, nomParrain, prenomParrain FROM parrainage WHERE nomFillot= :rNomFillot AND prenomFillot= :rPrenomFillot AND nomParrain= :rNomParrain AND prenomParrain= :rPrenomParrain');
+            $query=$bdd->prepare('SELECT nomFillot, prenomFillot, nomParrain, prenomParrain FROM parrainage WHERE nomFillot= :rNomFillot AND prenomFillot= :rPrenomFillot OR nomParrain= :rNomParrain AND prenomParrain= :rPrenomParrain');
             $query->execute(
                     array(
                     'rNomFillot' => $nomFillot,
@@ -265,7 +253,7 @@ else
 
             if($verificationC=$query->fetch())
             {
-                die('Vous avez déjà une demande en cours');
+                die('Vous ne pouvez avoir qu\'un seul parrain');
             }
 
             $idFillot = $answerF['id'];
