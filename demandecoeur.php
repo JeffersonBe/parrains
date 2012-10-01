@@ -213,7 +213,7 @@ else
         $query=$bdd->prepare('SELECT id, nom, prenom, email FROM user WHERE email = ?');
         $query->execute(array($emailFillot));
 
-        if($answerP = $query->fetch()) // On a crée le parrain et on a le fillot
+        if($answerF = $query->fetch()) // On a crée le parrain et on a le fillot
         {
             $idFillot = $answerF['id'];
             $idParrain = $answerP['id'];
