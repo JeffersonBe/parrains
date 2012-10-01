@@ -1,20 +1,20 @@
 <label for="nomFillot">Nom du fillot</label>
-    <input type="text" name="nomFillot" class="nom" required/>
+    <input type="text" name="nomFillot" class="nomF" required/>
 
 <label for="prenomFillot">Prénom du fillot</label>
-    <input type="text" name="prenomFillot" class="prenom" required/>
+    <input type="text" name="prenomFillot" class="prenomF" required/>
 
 <label for="emailFillot">Email du fillot</label>
-    <input type="email" name="emailFillot" class="email" required/>
+    <input type="email" name="emailFillot" class="emailF" required/>
 
 <label for="nomParrain">Nom du parrain</label>
-    <input type="text" name="nomParrain" class="nom" required/>
+    <input type="text" name="nomParrain" class="nomP" required/>
 
 <label for="prenomParrain">Prénom du parrain</label>
-    <input type="text" name="prenomParrain" class="prenom" required/>
+    <input type="text" name="prenomParrain" class="prenomP" required/>
 
 <label for="emailParrain">Email du Parrain</label>
-    <input type="email" name="emailParrain" class="email" required/>
+    <input type="email" name="emailParrain" class="emailP" required/>
 <div class="mobile-four">
     <?php
         require_once('recaptchalib.php');

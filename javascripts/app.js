@@ -1,8 +1,11 @@
 $(document).ready(function() {
 
-    $('.prenom').autocomplete('includes/prenom.php');
-    $('.nom').autocomplete('includes/nom.php');
-    $('.email').autocomplete('includes/email.php');
+    $('.prenomP').autocomplete('includes/prenomP.php');
+    $('.nomP').autocomplete('includes/nomP.php');
+    $('.emailP').autocomplete('includes/emailP.php');
+    $('.prenomF').autocomplete('includes/prenomF.php');
+    $('.nomF').autocomplete('includes/nomF.php');
+    $('.emailF').autocomplete('includes/emailF.php');
 
     ;(function ($, window, undefined) {
     'use strict';

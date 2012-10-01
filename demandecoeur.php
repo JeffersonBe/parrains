@@ -151,18 +151,7 @@ else
                 {
                     die('Un parrain ne peut pas être un fillot');
                 }
-                // On regarde si le fillot ou le parrain a déjà un parrainage en cours
-                $query=$bdd->prepare('SELECT nomFillot, prenomFillot, nomParrain, prenomParrain FROM parrainage_coeur WHERE nomFillot= :rNomFillot AND prenomFillot= :rPrenomFillot AND actif = :actif OR nomParrain= :rNomParrain AND prenomParrain= :rPrenomParrain AND actif = :actif');
-                $query->execute(
-                    array(
-                    'rNomFillot' => $nomFillot,
-                    'rPrenomFillot' => $prenomFillot,
-                    'rNomParrain' => $nomParrain,
-                    'rPrenomParrain' => $prenomParrain,
-                    'actif' => 2
-                    ));
-
-                if($answerPc=$query->fetch())
+                else
                 {
                     $idFillot = $answerF['id'];
                     $idParrain = $answerP['id'];
@@ -180,21 +169,7 @@ else
                                 'cle' => $cle
                             ));
                 }
-                else
-                {
-                    if($answerPc['actif']==0)
-                    {
-                        die("Vous avez une demande de cœur, mais elle n'est pas validé");
-                    }
-                    elseif($answerPc['actif']==1)
-                    {
-                        die("Vous avez une demande de cœur, mais il manque une validation");
-                    }
-                    elseif($answerPc['actif']==2)
-                    {
-                        die("Votre demande de cœur est déjà validé");
-                    }
-                }
+
             }
             else // Le fillot n'existe pas on le crée
             {
@@ -253,24 +228,6 @@ else
 
         if($answerP = $query->fetch()) // On a crée le parrain et on a le fillot
         {
-
-            // On vérifie si le parrain ou le fillot a déjà un fillot de cœur "validé" dans la table Parrainage coeur
-            $query=$bdd->prepare('SELECT nomFillot, prenomFillot, nomParrain, prenomParrain FROM parrainage_coeur WHERE nomFillot= :rNomFillot AND prenomFillot= :rPrenomFillot AND actif = :actif OR nomParrain= :rNomParrain AND prenomParrain= :rPrenomParrain AND actif = :actif');
-            $query->execute(
-                    array(
-                    'rNomFillot' => $nomFillot,
-                    'rPrenomFillot' => $prenomFillot,
-                    'rNomParrain' => $nomParrain,
-                    'rPrenomParrain' => $prenomParrain,
-                    'actif' => 2
-                    ));
-            $verificationC=$query->fetch();
-
-            if($verificationC=$query->fetch())
-            {
-                die('Vous avez déjà un fillot de cœur et vous ne pouvez avoir qu\'un seul parrain ou fillot de coeur');
-            }
-
             $idFillot = $answerF['id'];
             $idParrain = $answerP['id'];
 
