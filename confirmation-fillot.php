@@ -18,7 +18,6 @@
   <div class="row">
     <?php
         include('connect_settings.php');
-
         try
         {
         	$pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
@@ -45,7 +44,7 @@
                 $idFillot=addslashes($_GET['f']);
 
                 // On regarde si la clé, l'id du parrain et du fillot correspondent
-                $query=$bdd->prepare('SELECT actifF, actifP, cleF FROM parrainage WHERE id=:rIdFillot AND parraincoeur=:rIdParrain;');
+                $query=$bdd->prepare('SELECT actifF, actifP, cleF FROM parrainage WHERE idFillot=:rIdFillot AND idParrain=:rIdParrain');
                 $answer=$query->execute(array('rIdFillot'=>$idFillot, 'rIdParrain'=>$idParrain));
 
                 if($answer=$query->fetch())
@@ -155,7 +154,7 @@
                 $idFillot=addslashes($_GET['f']);
 
                 // On regarde si la clé, l'id du parrain et du fillot correspondent
-                $query=$bdd->prepare('SELECT actifF, actifP, cleP FROM parrainage_coeur WHERE id=:rIdFillot AND parraincoeur=:rIdParrain;');
+                $query=$bdd->prepare('SELECT actifF, actifP, cleP FROM parrainage_coeur WHERE idFillot=:rIdFillot AND idParrain=:rIdParrain;');
                 $answer=$query->execute(array('rIdFillot'=>$idFillot, 'rIdParrain'=>$idParrain));
 
                 if($answer=$query->fetch())
