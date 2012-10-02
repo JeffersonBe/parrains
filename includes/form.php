@@ -4,7 +4,7 @@
 <label for="prenomFillot">Prénom du fillot</label>
     <input type="text" name="prenomFillot" class="prenomF" required/>
 
-<label for="emailFillot">Email du fillot</label>
+<label for="emailFillot">Email TELECOM du fillot</label>
     <input type="email" name="emailFillot" class="emailF" required/>
 
 <label for="nomParrain">Nom du parrain</label>
@@ -13,9 +13,9 @@
 <label for="prenomParrain">Prénom du parrain</label>
     <input type="text" name="prenomParrain" class="prenomP" required/>
 
-<label for="emailParrain">Email du Parrain</label>
+<label for="emailParrain">Email TELECOM du Parrain</label>
     <input type="email" name="emailParrain" class="emailP" required/>
-<div class="mobile-four">
+<div class="mobile-four" id="captcha">
     <?php
         require_once('recaptchalib.php');
 
@@ -45,4 +45,6 @@
         echo recaptcha_get_html($publickey, $error);
     ?>
 </div>
-<input type="submit" class="button large" value="Match!"/>
+<div class="five columns centered mobile-four">
+    <input type="submit" class="button large" value="Match!"/>
+</div>

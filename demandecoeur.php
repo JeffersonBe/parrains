@@ -232,7 +232,7 @@ else
             $idFillot = $answerF['id'];
             $idParrain = $answerP['id'];
 
-            $query=$bdd->prepare('INSERT INTO parrainage_coeur(idFillot, nomFillot, prenomFillot, idParrain, nomParrain, prenomParrain, actifF, actifP, cleF, clefP) VALUES(:idFillot, :nomFillot, :prenomFillot, :idParrain, :nomParrain, :prenomParrain, :actifF, :actifP, :cleF, :cleP)');
+            $query=$bdd->prepare('INSERT INTO parrainage_coeur(idFillot, nomFillot, prenomFillot, idParrain, nomParrain, prenomParrain, actifF, actifP, cleF, cleP) VALUES(:idFillot, :nomFillot, :prenomFillot, :idParrain, :nomParrain, :prenomParrain, :actifF, :actifP, :cleF, :cleP)');
             $query->execute(
                     array(
                     'idFillot' => $idFillot,
@@ -299,11 +299,9 @@ else
         $headers .= "From: Staff Showtime <contact@showtime2012.fr>\r\n";
         $headers .= "Organization: Showtime BDE TMSP\r\n";
     	$message="
-    	<p>Salut ".$prenomFillot." ".$nomFillot.",</p><br/>
+    	<p>Salut ".$prenomFillot." ".$nomFillot.",</p>
     	<p>Pour confirmer que ton parrain de coeur est bien ".$prenomParrain." ".$nomParrain.", clique ici:</p>
-
-    	<a href=http://www.showtime2012.com/parrains/confirmation-fillot.php?t=".$idCoeur."&p=".$idParrain."&f=".$idFillot."&c=".$cleF.">http://www.showtime2012.com/parrains/confirmation-fillot.php?t=".$idCoeur."&p=".$idParrain."&f=".$idFillot."&c=".$cleF."</a><br/>
-
+    	<a href=http://www.showtime2012.com/parrains/confirmation-fillot.php?t=".$idCoeur."&p=".$idParrain."&f=".$idFillot."&c=".$cleF.">http://www.showtime2012.com/parrains/confirmation-fillot.php?t=".$idCoeur."&p=".$idParrain."&f=".$idFillot."&c=".$cleF."</a>
     	<h3>Le Staff Showtime</h3>";
     	mail($emailFillot, $sujet, $message, $headers);
 
@@ -315,11 +313,9 @@ else
         $headers .= "From: Staff Showtime <contact@showtime2012.fr>\r\n";
         $headers .= "Organization: Showtime BDE TMSP\r\n";
     	$message="
-    	<p>Salut ".$prenomParrain." ".$nomParrain.",</p><br/>
+    	<p>Salut ".$prenomParrain." ".$nomParrain.",</p>
     	<p>Pour confirmer que ton fillot est bien ".strtoupper($prenomFillot)." ".strtoupper($nomFillot).", clique ici:</p>
-
-    	<a href=http://www.showtime2012.com/parrains/confirmation-parrain.php?t=".$idCoeur."&p=".$idParrain."&f=".$idFillot."&c=".$cleP.">http://www.showtime2012.com/parrains/confirmation-parrain.php?t=".$idCoeur."&p=".$idParrain."&f=".$idFillot."&c=".$cleP." </a><br/>
-
+    	<a href=http://www.showtime2012.com/parrains/confirmation-parrain.php?t=".$idCoeur."&p=".$idParrain."&f=".$idFillot."&c=".$cleP.">http://www.showtime2012.com/parrains/confirmation-parrain.php?t=".$idCoeur."&p=".$idParrain."&f=".$idFillot."&c=".$cleP." </a>
     	<h3>Le Staff Showtime<h3>";
     	mail($emailParrain, $sujet, $message, $headers);
 

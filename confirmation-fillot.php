@@ -11,7 +11,7 @@
   <!-- Set the viewport width to device width for mobile -->
   <meta name="viewport" content="width=device-width" />
 
-  <title>Bienvenue sur la page de confirmation du Parrainage</title>
+  <title>Page de confirmation du Parrainage - Showtime BDE 2012</title>
   <?php include('includes/head.php'); ?>
 </head>
 <body>
@@ -113,7 +113,7 @@
                             {
                                 echo '
 
-                               <div class="alert-box success">
+                               <div class="alert-box [success]">
                                     Ton parrainage a bien été confirmé ;-)
                                     <a href="index.php" class="close">×</a>
                                 </div>
@@ -122,27 +122,52 @@
                             }
                             else
                             {
-                                echo 'Probleme de mise à jour de la base de donnée.';
+                                echo '
+                                <div class="alert-box [alert]">
+                                Probleme de mise à jour de la base de donnée.
+                                <a href="indexcoeur.php" class="close">&times;</a>
+                            </div>
+                                ';
                             }
                         }
                         else
                         {
-                            echo "La clef fournie n'est pas valide";
+                            echo '
+                            <div class="alert-box [alert]">
+                                La clef fournie n\'est pas valide
+                                <a href="indexcoeur.php" class="close">&times;</a>
+                            </div>
+                            ';
                         }
                     }
                     else
                     {
-                        echo('Ton parrainage est déjà confirmé');
+                        echo('
+                        <div class="alert-box [sucess]">
+                        Ton parrainage est déjà confirmé
+                                <a href="indexcoeur.php" class="close">&times;</a>
+                            </div>
+                        ');
                     }
                 }
                 else
                 {
-                    echo "Problème de connexion à la base de donnée.";
+                    echo '
+                    <div class="alert-box [alert]">
+                        Problème de connexion à la base de donnée
+                        <a href="indexcoeur.php" class="close">&times;</a>
+                    </div>
+                    ';
                 }
             }
             else
             {
-                echo "Erreur. Ton parrainage n'a pas été confirmé.";
+                echo '
+                <div class="alert-box [alert]">
+                Erreur. Ton parrainage n\'a pas été confirmé
+                        <a href="indexcoeur.php" class="close">&times;</a>
+                    </div>
+                ';
             }
         }
         elseif($idCoeur==2)
@@ -175,22 +200,42 @@
                                 $query=$bdd->prepare('UPDATE parrainage_coeur SET actifF= :rActif WHERE idFillot=:rIdFillot AND idParrain= :rIdParrain');
                                 if($answer=$query->execute(array('rActif'=>$actif, 'rIdParrain'=>$idParrain,'rIdFillot'=>$idFillot)))
                                 {
-                                    echo "Ton parrainage a bien été confirmé ;-) ";
+                                    echo '
+                                    <div class="alert-box [alert]">
+                                        "Ton parrainage a bien été confirmé, il manque plus que ton parrain pour valider votre parrainage"
+                                    <a href="indexcoeur.php" class="close">&times;</a>
+                                    </div>
+                                    ';
                                     $query->closeCursor();
                                 }
                                 else
                                 {
-                                    echo 'Probleme de mise à jour de la base de donnée.';
+                                    echo '
+                                        <div class="alert-box [alert]">
+                                            Probleme de mise à jour de la base de donnée.
+                                            <a href="indexcoeur.php" class="close">&times;</a>
+                                        </div>
+                                    ';
                                 }
                             }
                             else
                             {
-                                echo 'Probleme de mise à jour de la base de donnée.';
+                                echo '
+                                <div class="alert-box [alert]">
+                                    Probleme de mise à jour de la base de donnée.
+                                    <a href="indexcoeur.php" class="close">&times;</a>
+                                </div>
+                                ';
                             }
                         }
                         else
                         {
-                            echo "La clef fournie n'est pas valide";
+                            echo '
+                            <div class="alert-box [alert]">
+                                    La clef fournie n\'est pas valide
+                                    <a href="indexcoeur.php" class="close">&times;</a>
+                                </div>
+                            ';
                         }
                     }
                     elseif($actifP==0&&$actifF==1)
@@ -201,32 +246,62 @@
                             $query=$bdd->prepare('UPDATE parrainage_coeur SET actifF= :rActif WHERE idFillot=:rIdFillot AND idParrain= :rIdParrain');
                             if($answer=$query->execute(array('rActif'=>$actif, 'rIdParrain'=>$idParrain,'rIdFillot'=>$idFillot)))
                             {
-                                echo "Ton parrainage a bien été confirmé ;-) ";
+                                echo '
+                                    <div class="alert-box [success]">
+                                        Ton parrainage a bien été confirmé et maintenant actif !
+                                    <a href="indexcoeur.php" class="close">&times;</a>
+                                    </div>
+                                ';
                                 $query->closeCursor();
                             }
                             else
                             {
-                                echo 'Probleme de mise à jour de la base de donnée.';
+                                echo '
+                                <div class="alert-box [alert]">
+                                    Probleme de mise à jour de la base de donnée.
+                                <a href="indexcoeur.php" class="close">&times;</a>
+                                </div>
+                                ';
                             }
                         }
                         else
                         {
-                            echo "La clef fournie n'est pas valide";
+                            echo '
+                            <div class="alert-box [alert]">
+                                    La clef fournie n\'est pas valide.
+                                <a href="indexcoeur.php" class="close">&times;</a>
+                                </div>
+                            ';
                         }
                     }
                     else
                     {
-                        echo('Ton parrainage est déjà confirmé');
+                        echo'
+                        <div class="alert-box [s]">
+                            Ton parrainage est déjà confirmé
+                        <a href="indexcoeur.php" class="close">&times;</a>
+                        </div>
+                        ';
                     }
                 }
                 else
                 {
-                    echo "Problème de connexion à la base de donnée.";
+                    echo '
+                    <div class="alert-box [alert]">
+                        Problème de connexion à la base de donnée.
+                    <a href="indexcoeur.php" class="close">&times;</a>
+                    </div>
+                    ';
                 }
             }
             else
             {
-                echo "Erreur. Ton parrainage n'a pas été confirmé.";
+                echo '
+                <div class="alert-box [alert]">
+                        Erreur. Ton parrainage n\'a pas été confirmé
+                    <a href="indexcoeur.php" class="close">&times;</a>
+                    </div>
+                ';
             }
         }
 ?>

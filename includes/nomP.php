@@ -16,7 +16,7 @@ if(isset($_GET['q'])) {
     }
 
     // écriture de la requête
-    $requete = "SELECT prenom, statut FROM user WHERE nom LIKE '". $q ."%' AND statut LIKE '". $s ."' LIMIT 0, 10";
+    $requete = "SELECT nom, statut FROM user WHERE nom LIKE '". $q ."%' AND statut LIKE '". $s ."' LIMIT 0, 10";
 
     // exécution de la requête
     $resultat = $bdd->query($requete) or die(print_r($bdd->errorInfo()));
