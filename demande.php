@@ -94,8 +94,8 @@ else
     }
 
     // Initialisation de la clé pour la confirmation de parrainage
-    $cleF = md5(microtime(TRUE)*100000);
-    $cleP = md5(microtime(TRUE)*100000);
+    $cleF = md5(uniqid(rand(), true));
+    $cleP = md5(uniqid(rand(), true));
 
     // On regarde si le parrain et le fillot sont déjà actif et validé dans la table parrainage_coeur
     $query=$bdd->prepare('SELECT nomFillot, prenomFillot, nomParrain, prenomParrain FROM parrainage_coeur WHERE nomFillot= :rNomFillot AND prenomFillot= :rPrenomFillot AND nomParrain= :rNomParrain AND prenomParrain= :rPrenomParrain');
