@@ -110,7 +110,12 @@ else
 
     if($verifP=$query->fetch())
     {
-        die('Vous avez déjà fait une demande de parrainage, un parrain ne peut pas être un parrain de cœur');
+        die('
+            <div class="alert-box [alert]">
+                Vous avez déjà fait une demande de parrainage, un parrain ne peut pas être un parrain de cœur
+                <a href="/indexcoeur.php" class="close">&times;</a>
+            </div>
+        ');
     }
     $query = $query->closeCursor();
 
@@ -124,7 +129,12 @@ else
 
     	if($answerP['statut'] == 'fillot')
     	{
-            die('Un parrain ne peut pas être un fillot');
+            die('
+            <div class="alert-box [alert]">
+                Un parrain ne peut pas être un fillot
+                <a href="/indexcoeur.php" class="close">&times;</a>
+            </div>
+            ');
     	}
     	else // On cherche si le fillot existe déjà
     	{
@@ -136,14 +146,19 @@ else
 
                 if($answerF['statut'] == 'parrain')
                 {
-                    die('Un parrain ne peut pas être un fillot');
+                    die('
+                        <div class="alert-box [alert]">
+                            Un parrain ne peut pas être un fillot
+                            <a href="/indexcoeur.php" class="close">&times;</a>
+                        </div>
+                    ');
                 }
                 else
                 {
                     $idFillot = $answerF['id'];
                     $idParrain = $answerP['id'];
 
-                    $query=$bdd->prepare('INSERT INTO parrainage_coeur(idFillot, nomFillot, prenomFillot, idParrain, nomParrain, prenomParrain, actif, cle) VALUES(:idFillot, :nomFillot, :prenomFillot, :idParrain, :nomParrain, :prenomParrain, :actif, :cle)');
+                    $query=$bdd->prepare('INSERT INTO parrainage_coeur(idFillot, nomFillot, prenomFillot, idParrain, nomParrain, prenomParrain, actifF, actifP, cle) VALUES(:idFillot, :nomFillot, :prenomFillot, :idParrain, :nomParrain, :prenomParrain, :actifF, :actifP, :cle)');
                     $query->execute(
                             array(
                                 'idFillot' => $idFillot,
@@ -152,7 +167,8 @@ else
                                 'idParrain' => $idParrain,
                                 'nomParrain' => $nomParrain,
                                 'prenomParrain' => $prenomParrain,
-                                'actif' => 0,
+                                'actifF' => 0,
+                                'actifP' => 0,
                                 'cle' => $cle
                             ));
                 }
@@ -181,7 +197,7 @@ else
                 $idParrain = $answerP['id'];
 
                 // On ajoute le parrainage
-                $query=$bdd->prepare('INSERT INTO parrainage_coeur(idFillot, nomFillot, prenomFillot, idParrain, nomParrain, prenomParrain, actif, cle) VALUES (:idFillot, :nomFillot, :prenomFillot, :idParrain, :nomParrain, :prenomParrain, :actif, :cle)');
+                $query=$bdd->prepare('INSERT INTO parrainage_coeur(idFillot, nomFillot, prenomFillot, idParrain, nomParrain, prenomParrain, actifF, actifP, cle) VALUES (:idFillot, :nomFillot, :prenomFillot, :idParrain, :nomParrain, :prenomParrain, :actifF, :actifP, :cle)');
                 $query->execute(
                     array(
                     'idFillot' => $idFillot,
@@ -190,7 +206,8 @@ else
                     'idParrain' => $idParrain,
                     'nomParrain' => $nomParrain,
                     'prenomParrain' => $prenomParrain,
-                    'actif' => 0,
+                    'actifF' => 0,
+                    'actifP' => 0,
                     'cle' => $cle
                     ));
             }
@@ -218,7 +235,7 @@ else
             $idFillot = $answerF['id'];
             $idParrain = $answerP['id'];
 
-            $query=$bdd->prepare('INSERT INTO parrainage_coeur(idFillot, nomFillot, prenomFillot, idParrain, nomParrain, prenomParrain, actif, cle) VALUES(:idFillot, :nomFillot, :prenomFillot, :idParrain, :nomParrain, :prenomParrain, :actif, :cle)');
+            $query=$bdd->prepare('INSERT INTO parrainage_coeur(idFillot, nomFillot, prenomFillot, idParrain, nomParrain, prenomParrain, actifF, actifP, cle) VALUES(:idFillot, :nomFillot, :prenomFillot, :idParrain, :nomParrain, :prenomParrain, :actifF, :actifP, :cle)');
             $query->execute(
                     array(
                     'idFillot' => $idFillot,
@@ -227,7 +244,8 @@ else
                     'idParrain' => $idParrain,
                     'nomParrain' => $nomParrain,
                     'prenomParrain' => $prenomParrain,
-                    'actif' => 0,
+                    'actifF' => 0,
+                    'actifP' => 0,
                     'cle' => $cle
                     ));
 
@@ -258,7 +276,7 @@ else
             $idFillot = $answerF['id'];
             $idParrain = $answerP['id'];
 
-            $query=$bdd->prepare('INSERT INTO parrainage_coeur(idFillot, nomFillot, prenomFillot, idParrain, nomParrain, prenomParrain, actif, cle) VALUES(:idFillot, :nomFillot, :prenomFillot, :idParrain, :nomParrain, :prenomParrain, :actif, :cle)');
+            $query=$bdd->prepare('INSERT INTO parrainage_coeur(idFillot, nomFillot, prenomFillot, idParrain, nomParrain, prenomParrain, actifF, actifP, cle) VALUES(:idFillot, :nomFillot, :prenomFillot, :idParrain, :nomParrain, :prenomParrain, :actifF, :actifP, :cle)');
             $query->execute(
                     array(
                     'idFillot' => $idFillot,
@@ -267,7 +285,8 @@ else
                     'idParrain' => $idParrain,
                     'nomParrain' => $nomParrain,
                     'prenomParrain' => $prenomParrain,
-                    'actif' => 0,
+                    'actifF' => 0,
+                    'actifP' =>0,
                     'cle' => $cle
                     ));
         }
@@ -277,29 +296,39 @@ else
 
         //Envoi du mail pour le fillot
     	$sujet = "[PARRAINAGE] Confirme que ton parrain de coeur est bien ".$prenomParrain." ".$nomParrain."!" ;
-    	$headers = 'From: Staff Showtime <contact@showtime2012.com>'."\r\n";
     	$headers .= 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/html; charset=UTF-8' . "\r\n";
+    	$headers .= "Reply-To: Staff Showtime <contact@showtime2012.fr>\r\n";
+        $headers .= "Return-Path: Staff Showtime <contact@showtime2012.fr>\r\n";
+        $headers .= "From: Staff Showtime <contact@showtime2012.fr>\r\n";
+        $headers .= "Organization: Showtime BDE TMSP\r\n";
     	$message="<img src='http://www.showtime2012.com/parrains/img/logo.jpg' width='395' height='200' style='margin-right:auto;margin-left:auto;text-align:center;'/><br></br><br></br>
     	Salut ".$prenomFillot." ".$nomFillot.",<br></br><br></br>Pour confirmer que ton parrain de coeur est bien ".$prenomParrain." ".$nomParrain.", clique ici:<br></br>
 
-    	<a href=http://www.showtime2012.com/parrains/confirmation.php?t=".urlencode($idCoeur)."&?p=".urlencode($idFillot)."&f=".urlencode($idParrain)."&c=".urlencode($cle).">http://www.showtime2012.com/parrains/confirmationfillotcoeur.php?t=".urlencode($idCoeur)."&?p=".urlencode($idFillot)."&f=".urlencode($idParrain)."&c=".urlencode($cle)." </a><br></br><br></br>
+    	<a href=http://www.showtime2012.com/parrains/confirmation-fillot.php?t=".urlencode($idCoeur)."&?p=".urlencode($idFillot)."&f=".urlencode($idParrain)."&c=".$cleF.">http://www.showtime2012.com/parrains/confirmation-fillot.php?t=".urlencode($idCoeur)."&?p=".urlencode($idFillot)."&f=".urlencode($idParrain)."&c=".$cleF." </a><br></br><br></br>
 
     	<br><br/>Bisous tout partout,<br><br/><br><br/>Le Staff Showtime";
     	mail($emailFillot, $sujet, $message, $headers);
 
     	//Envoi du mail pour le parrain
     	$sujet = "[PARRAINAGE] Confirme que ton fillot de coeur est bien ".$prenomFillot." ".$nomFillot."!" ;
-    	$headers = 'From: Staff Showtime <contact@showtime2012.com>'."\r\n";
     	$headers .= 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/html; charset=UTF-8' . "\r\n";
+    	$headers .= "Reply-To: Staff Showtime <contact@showtime2012.fr>\r\n";
+        $headers .= "Return-Path: Staff Showtime <contact@showtime2012.fr>\r\n";
+        $headers .= "From: Staff Showtime <contact@showtime2012.fr>\r\n";
+        $headers .= "Organization: Showtime BDE TMSP\r\n";
     	$message="<img src='http://www.showtime2012.com/parrains/img/logo.jpg' width='395' height='200' style='margin-right:auto;margin-left:auto;text-align:center;'/><br></br><br></br>
     	Salut ".$prenomParrain." ".$nomParrain.",<br></br><br></br>Pour confirmer que ton fillot est bien ".strtoupper($prenomFillot)." ".strtoupper($nomFillot).", clique ici:<br></br>
 
-    	<a href=http://www.showtime2012.com/parrains/confirmation.php?t=".urlencode($idCoeur)."&?p=".urlencode($idFillot)."&f=".urlencode($idParrain)."&c=".urlencode($cle).">http://www.showtime2012.com/parrains/confirmationfillotcoeur.php?t=".urlencode($idCoeur)."&?p=".urlencode($idFillot)."&f=".urlencode($idParrain)."&c=".urlencode($cle)." </a><br></br><br></br>
+    	<a href=http://www.showtime2012.com/parrains/confirmation-parrain.php?t=".urlencode($idCoeur)."&?p=".urlencode($idFillot)."&f=".urlencode($idParrain)."&c=".$cleP.">http://www.showtime2012.com/parrains/confirmation-parrain.php?t=".urlencode($idCoeur)."&?p=".urlencode($idFillot)."&f=".urlencode($idParrain)."&c=".$cleP." </a><br></br><br></br>
 
     	<br><br/>Bisous tout partout,<br><br/><br><br/>Le Staff Showtime";
     	mail($emailParrain, $sujet, $message, $headers);
 
-    	echo("Félicitation ".$prenomParrain." ".strtoupper($nomParrain)." et ".$prenomFillot." ".strtoupper($nomFillot).", vous avez été enregistrés comme parrain et fillot. Un email va être envoyé sur votre adresse Telecom, n'oubliez pas d'y répondre pour confirmer le parrainage.");
+    	echo('<div class="alert-box success">
+  					Félicitation'.$prenomParrain.''.strtoupper($nomParrain).' et '.$prenomFillot.' '.strtoupper($nomFillot).', vous avez été enregistrés comme parrain et fillot de coeur. Un email va être envoyé sur votre adresse Telecom, n\'oubliez pas d\'y répondre pour confirmer le parrainage.
+  					<a href="index.php" class="close">×</a>
+  					</div>
+  		');
 }
 ?>
   <!-- Included JS Files (Compressed) -->
