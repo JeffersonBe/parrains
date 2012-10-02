@@ -309,7 +309,7 @@ else
     	$message="<img src='http://www.showtime2012.com/parrains/img/logo.jpg' width='395' height='200' style='margin-right:auto;margin-left:auto;text-align:center;'/><br></br><br></br>
     	Salut ".$prenomFillot." ".$nomFillot.",<br></br><br></br>Pour confirmer que ton parrain de coeur est bien ".$prenomParrain." ".$nomParrain.", clique ici:<br></br>
 
-    	<a href=http://www.showtime2012.com/parrains/confirmation-fillot.php?t=".$idCoeur."&?p=".$idFillot."&f=".$idParrain."&c=".$cleF.">http://www.showtime2012.com/parrains/confirmation-fillot.php?t=".$idCoeur."&?p=".$idFillot."&f=".$idParrain."&c=".$cleF." </a><br></br><br></br>
+    	<a href=http://www.showtime2012.com/parrains/confirmation-fillot.php?t=".$idCoeur."&p=".$idFillot."&f=".$idParrain."&c=".$cleF.">http://www.showtime2012.com/parrains/confirmation-fillot.php?t=".$idCoeur."&p=".$idFillot."&f=".$idParrain."&c=".$cleF." </a><br></br><br></br>
 
     	<br><br/>Bisous tout partout,<br><br/><br><br/>Le Staff Showtime";
     	mail($emailFillot, $sujet, $message, $headers);
@@ -324,7 +324,7 @@ else
     	$message="<img src='http://www.showtime2012.com/parrains/img/logo.jpg' width='395' height='200' style='margin-right:auto;margin-left:auto;text-align:center;'/><br></br><br></br>
     	Salut ".$prenomParrain." ".$nomParrain.",<br></br><br></br>Pour confirmer que ton fillot est bien ".strtoupper($prenomFillot)." ".strtoupper($nomFillot).", clique ici:<br></br>
 
-    	<a href=http://www.showtime2012.com/parrains/confirmation-parrain.php?t=".$idCoeur."&?p=".$idFillot."&f=".$idParrain."&c=".$cleP.">http://www.showtime2012.com/parrains/confirmation-parrain.php?t=".$idCoeur."&?p=".$idFillot."&f=".$idParrain."&c=".$cleP." </a><br></br><br></br>
+    	<a href=http://www.showtime2012.com/parrains/confirmation-parrain.php?t=".$idCoeur."&p=".$idFillot."&f=".$idParrain."&c=".$cleP.">http://www.showtime2012.com/parrains/confirmation-parrain.php?t=".$idCoeur."&p=".$idFillot."&f=".$idParrain."&c=".$cleP." </a><br></br><br></br>
 
     	<br><br/>Bisous tout partout,<br><br/><br><br/>Le Staff Showtime";
     	mail($emailParrain, $sujet, $message, $headers);

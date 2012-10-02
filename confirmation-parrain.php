@@ -45,7 +45,7 @@
                 $idFillot=addslashes($_GET['f']);
 
                 // On regarde si la clé, l'id du parrain et du fillot correspondent
-                $query=$bdd->prepare('SELECT actifF, actifP, cleP FROM parrainage WHERE id=:rIdFillot AND parraincoeur=:rIdParrain;');
+                $query=$bdd->prepare('SELECT actifF, actifP, cleP FROM parrainage WHERE idFillot=:rIdFillot AND idParrain=:rIdParrain;');
                 $answer=$query->execute(array('rIdFillot'=>$idFillot, 'rIdParrain'=>$idParrain));
 
                 if($answer=$query->fetch())
@@ -129,7 +129,7 @@
                 $idFillot=addslashes($_GET['f']);
 
                 // On regarde si la clé, l'id du parrain et du fillot correspondent
-                $query=$bdd->prepare('SELECT actifF, actifP, cleP FROM parrainage_coeur WHERE id=:rIdFillot AND parraincoeur=:rIdParrain;');
+                $query=$bdd->prepare('SELECT actifF, actifP, cleP FROM parrainage_coeur WHERE idFillot=:rIdFillot AND idParrain=:rIdParrain;');
                 $answer=$query->execute(array('rIdFillot'=>$idFillot, 'rIdParrain'=>$idParrain));
 
                 if($answer=$query->fetch())
