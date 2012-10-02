@@ -52,7 +52,7 @@
                 {
                     $actifP=$answer['actifP'];
                     $actifF=$answer['actifF'];
-                    $cleBdd=$answer['clefP'];
+                    $cleBdd=$answer['cleP'];
 
                     // On verifie le status du parrainage
                     if($actifP==0&&$actifF==0)
@@ -136,7 +136,7 @@
                 {
                     $actifP=$answer['actifP'];
                     $actifF=$answer['actifF'];
-                    $cleBdd=$answer['clefP'];
+                    $cleBdd=$answer['cleP'];
 
                     // On verifie le status du parrainage
                     if($actifP==0&&$actifF==0)
