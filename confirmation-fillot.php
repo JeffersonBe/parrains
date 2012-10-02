@@ -39,9 +39,9 @@
         {
             if((!empty($_GET['p']))&&(!empty($_GET['f']))&&(!empty($_GET['c'])))
             {
-                $cle=addslashes($_GET['c']);
-                $idParrain=addslashes($_GET['p']);
-                $idFillot=addslashes($_GET['f']);
+                $cle=$_GET['c'];
+                $idParrain=$_GET['p'];
+                $idFillot=$_GET['f'];
 
                 // On regarde si la clé, l'id du parrain et du fillot correspondent
                 $query=$bdd->prepare('SELECT actifF, actifP, cleF FROM parrainage WHERE idFillot=:rIdFillot AND idParrain=:rIdParrain');
@@ -51,12 +51,12 @@
                 {
                     $actifP=$answer['actifP'];
                     $actifF=$answer['actifF'];
-                    $cleBdd=$answer['clefF'];
+                    $cleB=$answer['cleF'];
 
                     // On verifie le status du parrainage
                     if($actifP==0&&$actifF==0)
                     {
-                        if($cleBdd==$cle)
+                        if($cleB==$cle)
                         {
                             // Le parrainage n'est pas encore validé
                             if($actifF==0)
@@ -161,7 +161,7 @@
                 {
                     $actifP=$answer['actifP'];
                     $actifF=$answer['actifF'];
-                    $cleBdd=$answer['clefF'];
+                    $cleBdd=$answer['cleF'];
 
                     // On verifie le status du parrainage
                     if($actifP==0&&$actifF==0)
