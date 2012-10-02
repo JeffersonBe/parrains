@@ -93,13 +93,13 @@ else
         	die('Erreur : ' . $e->getMessage());
         }
 
-    // Initialisation de la clé
-    $cleF = md5(uniqid(random()));
-    $cleP = md5(uniqid(random()));
+    // Initialisation de la clé pour la confirmation de parrainage
+    $cleF = md5(uniqid(""));
+    $cleP = md5(uniqid(""));
 
     // Cle correspondant à la table user
-    $cleFillot = md5(uniqid(random()));
-    $cleParrain = md5(uniqid(random()));
+    $cleFillot = md5(uniqid(""));
+    $cleParrain = md5(uniqid(""));
 
     // On regarde si le parrain et le fillot sont déjà actif et validé dans la table parrainage
     $query=$bdd->prepare('SELECT nomFillot, prenomFillot, nomParrain, prenomParrain FROM parrainage WHERE nomFillot= :rNomFillot AND prenomFillot= :rPrenomFillot AND nomParrain= :rNomParrain AND prenomParrain= :rPrenomParrain');
