@@ -94,12 +94,8 @@ else
         }
 
     // Initialisation de la clé pour la confirmation de parrainage
-    $cleF = md5(uniqid(""));
-    $cleP = md5(uniqid(""));
-
-    // Cle correspondant à la table user
-    $cleFillot = md5(uniqid(""));
-    $cleParrain = md5(uniqid(""));
+    $cleF = md5(microtime(TRUE)*100000);
+    $cleP = md5(microtime(TRUE)*100000);
 
     // On regarde si le parrain et le fillot sont déjà actif et validé dans la table parrainage
     $query=$bdd->prepare('SELECT nomFillot, prenomFillot, nomParrain, prenomParrain FROM parrainage WHERE nomFillot= :rNomFillot AND prenomFillot= :rPrenomFillot AND nomParrain= :rNomParrain AND prenomParrain= :rPrenomParrain');
@@ -180,15 +176,13 @@ else
             }
             else // Le fillot n'existe pas on le crée
             {
-                $query=$bdd->prepare('INSERT INTO user(nom, prenom, email, statut, actif, cle) VALUES (:nom, :prenom, :email, :status, :actif, :cle)');
+                $query=$bdd->prepare('INSERT INTO user(nom, prenom, email, statut) VALUES (:nom, :prenom, :email, :status)');
                 $query->execute(
                         array(
                         'nom' => $nomFillot,
                         'prenom' => $prenomFillot,
                         'email' => $emailFillot,
-                        'status' => $statusFillot,
-                        'actif' => 0,
-                        'cle' => $cleFillot
+                        'status' => $statusFillot
                         ));
                 echo("Nous vous avons ajouté en tant que".$statusFillot."");
 
@@ -220,15 +214,13 @@ else
     }
     else // Le parrain n'existe pas dans notre base de données, on l'ajoute
     {
-        $query=$bdd->prepare('INSERT INTO user(nom, prenom, email, statut, actif, cle) VALUES(:nom, :prenom, :email, :status, :actif, :cle)');
+        $query=$bdd->prepare('INSERT INTO user(nom, prenom, email, statut) VALUES(:nom, :prenom, :email, :status)');
         $query->execute(
                     array(
                     'nom' => $nomParrain,
                     'prenom' => $prenomParrain,
                     'email' => $emailParrain,
-                    'status' => $statusParrain,
-                    'actif' => 0,
-                    'cle' => $cleParrain
+                    'status' => $statusParrain
                     ));
 
         // On vérifie si le fillot existe déjà
@@ -258,15 +250,13 @@ else
         }
         else // On crée le fillot
         {
-            $query=$bdd->prepare('INSERT INTO user(nom, prenom, email, statut, actif, cle) VALUES(:nom, :prenom, :email, :status, :actif, :cle)');
+            $query=$bdd->prepare('INSERT INTO user(nom, prenom, email, statut) VALUES(:nom, :prenom, :email, :status)');
             $query->execute(
                         array(
                         'nom' => $nomFillot,
                         'prenom' => $prenomFillot,
                         'email' => $emailFillot,
-                        'status' => $statusFillot,
-                        'actif' => 0,
-                        'cle' => $cleFillot
+                        'status' => $statusFillot
                         ));
 
             // On sélectionne le parrain que l'on vient de créer précedemment
@@ -308,12 +298,13 @@ else
         $headers .= "Return-Path: Staff Showtime <contact@showtime2012.fr>\r\n";
         $headers .= "From: Staff Showtime <contact@showtime2012.fr>\r\n";
         $headers .= "Organization: Showtime BDE TMSP\r\n";
-    	$message="<img src='http://www.showtime2012.com/parrains/img/logo.jpg' width='395' height='200' style='margin-right:auto;margin-left:auto;text-align:center;'/><br></br><br></br>
-    	Salut ".$prenomFillot." ".$nomFillot.",<br></br><br></br>Pour confirmer que ton parrain de coeur est bien ".$prenomParrain." ".$nomParrain.", clique ici:<br></br>
+    	$message="
+    	<p>Salut ".$prenomFillot." ".$nomFillot.",</p><br/>
+    	<p>Pour confirmer que ton parrain de coeur est bien ".$prenomParrain." ".$nomParrain.", clique ici:</p>
 
-    	<a href=http://www.showtime2012.com/parrains/confirmation-fillot.php?t=".$idCoeur."&p=".$idParrain."&f=".$idFillot."&c=".$cleF.">http://www.showtime2012.com/parrains/confirmation-fillot.php?t=".$idCoeur."&p=".$idParrain."&f=".$idFillot."&c=".$cleF." </a><br></br><br></br>
+    	<a href=http://www.showtime2012.com/parrains/confirmation-fillot.php?t=".$idCoeur."&p=".$idParrain."&f=".$idFillot."&c=".$cleF.">http://www.showtime2012.com/parrains/confirmation-fillot.php?t=".$idCoeur."&p=".$idParrain."&f=".$idFillot."&c=".$cleF."</a><br/>
 
-    	<br><br/>Bisous tout partout,<br><br/><br><br/>Le Staff Showtime";
+    	<h3>Le Staff Showtime</h3>";
     	mail($emailFillot, $sujet, $message, $headers);
 
     	//Envoi du mail pour le parrain
@@ -323,12 +314,13 @@ else
         $headers .= "Return-Path: Staff Showtime <contact@showtime2012.fr>\r\n";
         $headers .= "From: Staff Showtime <contact@showtime2012.fr>\r\n";
         $headers .= "Organization: Showtime BDE TMSP\r\n";
-    	$message="<img src='http://www.showtime2012.com/parrains/img/logo.jpg' width='395' height='200' style='margin-right:auto;margin-left:auto;text-align:center;'/><br></br><br></br>
-    	Salut ".$prenomParrain." ".$nomParrain.",<br></br><br></br>Pour confirmer que ton fillot est bien ".strtoupper($prenomFillot)." ".strtoupper($nomFillot).", clique ici:<br></br>
+    	$message="
+    	<p>Salut ".$prenomParrain." ".$nomParrain.",</p><br/>
+    	<p>Pour confirmer que ton fillot est bien ".strtoupper($prenomFillot)." ".strtoupper($nomFillot).", clique ici:</p>
 
-    	<a href=http://www.showtime2012.com/parrains/confirmation-parrain.php?t=".$idCoeur."&p=".$idParrain."&f=".$idFillot."&c=".$cleP.">http://www.showtime2012.com/parrains/confirmation-parrain.php?t=".$idCoeur."&p=".$idParrain."&f=".$idFillot."&c=".$cleP." </a><br></br><br></br>
+    	<a href=http://www.showtime2012.com/parrains/confirmation-parrain.php?t=".$idCoeur."&p=".$idParrain."&f=".$idFillot."&c=".$cleP.">http://www.showtime2012.com/parrains/confirmation-parrain.php?t=".$idCoeur."&p=".$idParrain."&f=".$idFillot."&c=".$cleP." </a><br/>
 
-    	<br><br/>Bisous tout partout,<br><br/><br><br/>Le Staff Showtime";
+    	<h3>Le Staff Showtime<h3>";
     	mail($emailParrain, $sujet, $message, $headers);
 
     	echo('<div class="alert-box success">
