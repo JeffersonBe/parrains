@@ -1,5 +1,4 @@
-﻿q<!DOCTYPE html>
-
+﻿<!DOCTYPE html>
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
@@ -66,7 +65,7 @@
                                 if($answer=$query->execute(array('rActif'=>$actif, 'rIdParrain'=>$idParrain,'rIdFillot'=>$idFillot)))
                                 {
                                     echo '
-                                        <div class="alert-box success">
+                                        <div class="alert-box [success]">
                                             Ton parrainage a bien été confirmé ;-)
                                         <a href="index.php" class="close">×</a>
                                         </div>
@@ -78,7 +77,7 @@
                                     echo '
                                         <div class="alert-box [alert]">
                                             Probleme de mise à jour de la base de donnée.
-                                            <a href="" class="close">&times;</a>
+                                            <a href="index.php" class="close">&times;</a>
                                         </div>
                                     ';
                                 }
@@ -88,7 +87,7 @@
                                 echo 'Probleme de mise à jour de la base de donnée.
                                     <div class="alert-box [alert]">
                                         Probleme de mise à jour de la base de donnée.
-                                        <a href="" class="close">&times;</a>
+                                        <a href="index.php" class="close">&times;</a>
                                     </div>
                                 ';
                             }
@@ -98,7 +97,7 @@
                             echo '
                             <div class="alert-box [alert]">
                                 La clef fournie n\'est pas valide
-                                <a href="indexcoeur.php" class="close">&times;</a>
+                                <a href="index.php" class="close">&times;</a>
                             </div>
                             ';
                         }
@@ -125,7 +124,7 @@
                                 echo '
                                 <div class="alert-box [alert]">
                                 Probleme de mise à jour de la base de donnée.
-                                <a href="indexcoeur.php" class="close">&times;</a>
+                                <a href="index.php" class="close">&times;</a>
                             </div>
                                 ';
                             }
@@ -135,7 +134,7 @@
                             echo '
                             <div class="alert-box [alert]">
                                 La clef fournie n\'est pas valide
-                                <a href="indexcoeur.php" class="close">&times;</a>
+                                <a href="index.php" class="close">&times;</a>
                             </div>
                             ';
                         }
@@ -145,7 +144,7 @@
                         echo('
                         <div class="alert-box [sucess]">
                         Ton parrainage est déjà confirmé
-                                <a href="indexcoeur.php" class="close">&times;</a>
+                                <a href="index.php" class="close">&times;</a>
                             </div>
                         ');
                     }
@@ -155,7 +154,7 @@
                     echo '
                     <div class="alert-box [alert]">
                         Problème de connexion à la base de donnée
-                        <a href="indexcoeur.php" class="close">&times;</a>
+                        <a href="index.php" class="close">&times;</a>
                     </div>
                     ';
                 }
@@ -165,7 +164,7 @@
                 echo '
                 <div class="alert-box [alert]">
                 Erreur. Ton parrainage n\'a pas été confirmé
-                        <a href="indexcoeur.php" class="close">&times;</a>
+                        <a href="index.php" class="close">&times;</a>
                     </div>
                 ';
             }
@@ -201,7 +200,7 @@
                                 if($answer=$query->execute(array('rActif'=>$actif, 'rIdParrain'=>$idParrain,'rIdFillot'=>$idFillot)))
                                 {
                                     echo '
-                                    <div class="alert-box [alert]">
+                                    <div class="alert-box [success]">
                                         "Ton parrainage a bien été confirmé, il manque plus que ton parrain pour valider votre parrainage"
                                     <a href="indexcoeur.php" class="close">&times;</a>
                                     </div>
@@ -277,7 +276,7 @@
                     else
                     {
                         echo'
-                        <div class="alert-box [s]">
+                        <div class="alert-box [success]">
                             Ton parrainage est déjà confirmé
                         <a href="indexcoeur.php" class="close">&times;</a>
                         </div>
