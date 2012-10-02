@@ -45,39 +45,26 @@
                 $idFillot=addslashes($_GET['f']);
 
                 // On regarde si la clé, l'id du parrain et du fillot correspondent
-                $query=$bdd->prepare('SELECT actif, cle FROM parrainage WHERE id=:rIdFillot AND parraincoeur=:rIdParrain;');
+                $query=$bdd->prepare('SELECT actifF, actifP, cleP FROM parrainage WHERE id=:rIdFillot AND parraincoeur=:rIdParrain;');
                 $answer=$query->execute(array('rIdFillot'=>$idFillot, 'rIdParrain'=>$idParrain));
 
                 if($answer=$query->fetch())
                 {
-                    $actif=$answer['actif'];
-                    $cleBdd=$answer['clef'];
+                    $actifP=$answer['actifP'];
+                    $actifF=$answer['actifF'];
+                    $cleBdd=$answer['clefP'];
 
                     // On verifie le status du parrainage
-                    if($actif>2)
+                    if($actifP==0&&$actifF==0)
                     {
                         if($cleBdd==$cle)
                         {
                             // Le parrainage n'est pas encore validé
-                            if($actif==0)
+                            if($actifP==0)
                             {
                                 $actif=1;
-                                $query=$bdd->prepare('UPDATE parrainage SET actif= :rActif WHERE idFillot=:rIdFillot AND idParrain= :rIdParrain');
-                                if($answer=$query->execute(array('rActif'=>$actif, 'rIdParrain'=>$idParrain,'rIdFillot'=>$idFillot)))
-                                {
-                                    echo "Ton parrainage a bien été confirmé ;-) ";
-                                    $query->closeCursor();
-                                }
-                                else
-                                {
-                                    echo 'Probleme de mise à jour de la base de donnée.';
-                                }
-                            }
-                            else if($actif==1)
-                            {
-                                $actif=2;
-                                $query=$bdd->prepare('UPDATE parrainage SET actif= :rActif WHERE idFillot=:rIdFillot AND idParrain =:rIdParrain');
-                                if($answer=$query->execute(array('rActif'=>$actif, 'rIdParrain'=>$idParrain,'rIdFillot'=>$idFillot)))
+                                $query=$bdd->prepare('UPDATE parrainage SET actifP= :rActif WHERE idFillot=:rIdFillot AND idParrain= :rIdParrain');
+                                if($answer=$query->execute(array('rActif'=>$actifP, 'rIdParrain'=>$idParrain,'rIdFillot'=>$idFillot)))
                                 {
                                     echo "Ton parrainage a bien été confirmé ;-) ";
                                     $query->closeCursor();
@@ -89,22 +76,43 @@
                             }
                             else
                             {
-                                echo "La clef fournie n'est pas valide";
+                                echo 'Probleme de mise à jour de la base de donnée.';
                             }
-                        }
-                        else if($actif==1)
-                        {
-                            echo "Tu as déjà validé le parrainage. Il ne reste plus qu'au fillot de coeur de valider.";
                         }
                         else
                         {
-                            echo "Le parrainage a déjà été totalement validé.";
+                            echo "La clef fournie n'est pas valide";
+                        }
+                    }
+                    elseif($actifP==0&&$actifF==1)
+                    {
+                        if($cleBdd==$cle)
+                        {
+                            $actif=1;
+                            $query=$bdd->prepare('UPDATE parrainage SET actifP= :rActif WHERE idFillot=:rIdFillot AND idParrain= :rIdParrain');
+                            if($answer=$query->execute(array('rActif'=>$actifP, 'rIdParrain'=>$idParrain,'rIdFillot'=>$idFillot)))
+                            {
+                                echo "Ton parrainage a bien été confirmé ;-) ";
+                                $query->closeCursor();
+                            }
+                            else
+                            {
+                                echo 'Probleme de mise à jour de la base de donnée.';
+                            }
+                        }
+                        else
+                        {
+                            echo "La clef fournie n'est pas valide";
                         }
                     }
                     else
                     {
-                        echo "Problème de connexion à la base de donnée.";
+                        echo('Ton parrainage est déjà confirmé');
                     }
+                }
+                else
+                {
+                    echo "Problème de connexion à la base de donnée.";
                 }
             }
             else
@@ -120,36 +128,53 @@
                 $idParrain=addslashes($_GET['p']);
                 $idFillot=addslashes($_GET['f']);
 
-                $query=$bdd->prepare('SELECT actif, cle FROM parrainage_coeur WHERE id=:r_idfillot AND parraincoeur=:r_idparrain;');
-                $answer=$query->execute(array('r_idfillot'=>$idFillot, 'r_idparrain'=>$idParrain));
+                // On regarde si la clé, l'id du parrain et du fillot correspondent
+                $query=$bdd->prepare('SELECT actifF, actifP, cleP FROM parrainage_coeur WHERE id=:rIdFillot AND parraincoeur=:rIdParrain;');
+                $answer=$query->execute(array('rIdFillot'=>$idFillot, 'rIdParrain'=>$idParrain));
+
                 if($answer=$query->fetch())
                 {
-                    $cleBdd=$answer['clef'];
-                    $actif=$answer['actif'];
-                    if($actif!=2)
+                    $actifP=$answer['actifP'];
+                    $actifF=$answer['actifF'];
+                    $cleBdd=$answer['clefP'];
+
+                    // On verifie le status du parrainage
+                    if($actifP==0&&$actifF==0)
                     {
                         if($cleBdd==$cle)
                         {
-                            if($actif==0)
+                            // Le parrainage n'est pas encore validé
+                            if($actifP==0)
                             {
                                 $actif=1;
-                                $query=$bdd->prepare('UPDATE parrainage_coeur SET actif= :rActif WHERE idFillot=:rIdFillot AND idParrain= :rIdParrain');
-                                if($answer=$query->execute(array('rActif'=>$actif, 'rIdParrain'=>$idParrain,'rIdFillot'=>$idFillot)))
+                                $query=$bdd->prepare('UPDATE parrainage_coeur SET actifP= :rActif WHERE idFillot=:rIdFillot AND idParrain= :rIdParrain');
+                                if($answer=$query->execute(array('rActif'=>$actifP, 'rIdParrain'=>$idParrain,'rIdFillot'=>$idFillot)))
                                 {
                                     echo "Ton parrainage a bien été confirmé ;-) ";
                                     $query->closeCursor();
                                 }
                                 else
                                 {
-                                echo 'Probleme de mise à jour de la base de donnée.';
+                                    echo 'Probleme de mise à jour de la base de donnée.';
                                 }
                             }
+                            else
+                            {
+                                echo 'Probleme de mise à jour de la base de donnée.';
+                            }
                         }
-                        else if($actif==1)
+                        else
                         {
-                            $actif=2;
-                            $query=$bdd->prepare('UPDATE parrainage_coeur SET actif= :rActif WHERE idFillot=:rIdFillot AND idParrain =:rIdParrain');
-                            if($answer=$query->execute(array('rActif'=>$actif, 'rIdParrain'=>$idParrain,'rIdFillot'=>$idFillot)))
+                            echo "La clef fournie n'est pas valide";
+                        }
+                    }
+                    elseif($actifP==0&&$actifF==1)
+                    {
+                        if($cleBdd==$cle)
+                        {
+                            $actif=1;
+                            $query=$bdd->prepare('UPDATE parrainage_coeur SET actifP= :rActif WHERE idFillot=:rIdFillot AND idParrain= :rIdParrain');
+                            if($answer=$query->execute(array('rActif'=>$actifP, 'rIdParrain'=>$idParrain,'rIdFillot'=>$idFillot)))
                             {
                                 echo "Ton parrainage a bien été confirmé ;-) ";
                                 $query->closeCursor();
@@ -161,16 +186,12 @@
                         }
                         else
                         {
-                        echo "La clef fournie n'est pas valide";
+                            echo "La clef fournie n'est pas valide";
                         }
-                    }
-                    else if($actif==1)
-                    {
-                        echo "Tu as déjà validé le parrainage. Il ne reste plus qu'au fillot de coeur de valider.";
                     }
                     else
                     {
-                        echo "Le parrainage a déjà été totalement validé.";
+                        echo('Ton parrainage est déjà confirmé');
                     }
                 }
                 else
@@ -182,10 +203,6 @@
             {
                 echo "Erreur. Ton parrainage n'a pas été confirmé.";
             }
-        }
-        else
-        {
-            echo("Il y a un problème dans votre lien.");
         }
 ?>
   <!-- Included JS Files (Compressed) -->
