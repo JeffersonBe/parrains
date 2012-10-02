@@ -84,22 +84,22 @@ else
     include('connect_settings.php');
 
     try
-        {
-        	$pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-        	$bdd = new PDO('mysql:host='.$hostdb.';dbname='.$namedb, $logindb, $passworddb, $pdo_options) or die('Il y a un problème de connexion à la base de données');
-        }
-        catch (Exception $e)
-        {
-        	die('Erreur : ' . $e->getMessage());
-        }
+    {
+    	$pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
+    	$bdd = new PDO('mysql:host='.$hostdb.';dbname='.$namedb, $logindb, $passworddb, $pdo_options) or die('Il y a un problème de connexion à la base de données');
+    }
+    catch (Exception $e)
+    {
+    	die('Erreur : ' . $e->getMessage());
+    }
 
     // Initialisation de la clé pour la confirmation de parrainage
-    $cleF = md5(uniqid(rand(), true));
-    $cleP = md5(uniqid(rand(), true));
+    $cleF = uniqid(rand(), true);
+    $cleP = uniqid(rand(), true);
 
     // Cle correspondant à la table user
-    $cleFillot = md5(uniqid(rand(), true));
-    $cleParrain = md5(uniqid(rand(), true));
+    $cleFillot = uniqid(rand(), true);
+    $cleParrain = uniqid(rand(), true);
 
     // On regarde si le parrain et le fillot sont déjà actif et validé dans la table parrainage_coeur
     $query=$bdd->prepare('SELECT nomFillot, prenomFillot, nomParrain, prenomParrain FROM parrainage_coeur WHERE nomFillot= :rNomFillot AND prenomFillot= :rPrenomFillot AND nomParrain= :rNomParrain AND prenomParrain= :rPrenomParrain');
@@ -343,9 +343,9 @@ else
         $headers .= "Organization: Showtime BDE TMSP\r\n";
     	$message="
         <p>Salut ".$prenomFillot." ".$nomFillot.",</p><br></br>
-        <p>Pour confirmer que ton parrain de coeur est bien ".$prenomParrain." ".$nomParrain.", clique ici:</p></><br></br>
+        <p>Pour confirmer que ton parrain est bien ".$prenomParrain." ".$nomParrain.", clique ici:</p></><br></br>
 
-    	<a href=http://www.showtime2012.com/parrains/confirmation-fillot.php?t=".urlencode($idCoeur)."&?p=".urlencode($idFillot)."&f=".urlencode($idParrain)."&c=".$cleF.">http://www.showtime2012.com/parrains/confirmation-fillot.php?t=".urlencode($idCoeur)."&?p=".urlencode($idFillot)."&f=".urlencode($idParrain)."&c=".$cleF." </a><br></br><br></br>
+    	<a href=http://www.showtime2012.com/parrains/confirmation-fillot.php?t=".$idCoeur."&?p=".$idFillot."&f=".$idParrain."&c=".$cleF.">http://www.showtime2012.com/parrains/confirmation-fillot.php?t=".$idCoeur."&?p=".$idFillot."&f=".$idParrain."&c=".$cleF." </a><br></br><br></br>
 
     	<p>Bon parrainage,</p><br><br/><br><br/>
     	<h3>Le Staff Showtime</h3>";
@@ -361,13 +361,13 @@ else
     	$message="<img src='http://www.showtime2012.com/parrains/img/logo.jpg' width='395' height='200' style='margin-right:auto;margin-left:auto;text-align:center;'/><br></br><br></br>
     	Salut ".$prenomParrain." ".$nomParrain.",<br></br><br></br>Pour confirmer que ton fillot est bien ".strtoupper($prenomFillot)." ".strtoupper($nomFillot).", clique ici:<br></br>
 
-    	<a href=http://www.showtime2012.com/parrains/confirmation-parrain.php?t=".urlencode($idCoeur)."&?p=".urlencode($idFillot)."&f=".urlencode($idParrain)."&c=".$cleP.">http://www.showtime2012.com/parrains/confirmation-parrain.php?t=".urlencode($idCoeur)."&?p=".urlencode($idFillot)."&f=".urlencode($idParrain)."&c=".$cleP."</a><br></br><br></br>
+    	<a href=http://www.showtime2012.com/parrains/confirmation-parrain.php?t=".$idCoeur."&?p=".$idFillot."&f=".$idParrain."&c=".$cleP.">http://www.showtime2012.com/parrains/confirmation-parrain.php?t=".$idCoeur."&?p=".$idFillot."&f=".$idParrain."&c=".$cleP."</a><br></br><br></br>
 
     	<br><br/>Bisous tout partout,<br><br/><br><br/>Le Staff Showtime";
     	mail($emailParrain, $sujet, $message, $headers);
 
     	echo('<div class="alert-box success">
-  					Félicitation'.$prenomParrain.''.strtoupper($nomParrain).' et '.$prenomFillot.' '.strtoupper($nomFillot).', vous avez été enregistrés comme parrain et fillot. Un email va être envoyé sur votre adresse Telecom, n\'oubliez pas d\'y répondre pour confirmer le parrainage.
+  					Félicitation, '.$prenomParrain.''.strtoupper($nomParrain).' et '.$prenomFillot.' '.strtoupper($nomFillot).', vous avez été enregistrés comme parrain et fillot. Un email va être envoyé sur votre adresse Telecom, n\'oubliez pas d\'y répondre pour confirmer le parrainage.
   					<a href="index.php" class="close">×</a>
   				</div>
   		');
