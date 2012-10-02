@@ -63,7 +63,7 @@
                             {
                                 $actif=1;
                                 $query=$bdd->prepare('UPDATE parrainage SET actifF= :rActif WHERE idFillot=:rIdFillot AND idParrain= :rIdParrain');
-                                if($answer=$query->execute(array('rActif'=>$actifF, 'rIdParrain'=>$idParrain,'rIdFillot'=>$idFillot)))
+                                if($answer=$query->execute(array('rActif'=>$actif, 'rIdParrain'=>$idParrain,'rIdFillot'=>$idFillot)))
                                 {
                                     echo '
                                         <div class="alert-box success">
@@ -109,7 +109,7 @@
                         {
                             $actif=1;
                             $query=$bdd->prepare('UPDATE parrainage SET actifF= :rActif WHERE idFillot=:rIdFillot AND idParrain= :rIdParrain');
-                            if($answer=$query->execute(array('rActif'=>$actifF, 'rIdParrain'=>$idParrain,'rIdFillot'=>$idFillot)))
+                            if($answer=$query->execute(array('rActif'=>$actif, 'rIdParrain'=>$idParrain,'rIdFillot'=>$idFillot)))
                             {
                                 echo '
 
@@ -173,7 +173,7 @@
                             {
                                 $actif=1;
                                 $query=$bdd->prepare('UPDATE parrainage_coeur SET actifF= :rActif WHERE idFillot=:rIdFillot AND idParrain= :rIdParrain');
-                                if($answer=$query->execute(array('rActif'=>$actifF, 'rIdParrain'=>$idParrain,'rIdFillot'=>$idFillot)))
+                                if($answer=$query->execute(array('rActif'=>$actif, 'rIdParrain'=>$idParrain,'rIdFillot'=>$idFillot)))
                                 {
                                     echo "Ton parrainage a bien été confirmé ;-) ";
                                     $query->closeCursor();
@@ -198,8 +198,8 @@
                         if($cleBdd==$cle)
                         {
                             $actif=1;
-                            $query=$bdd->prepare('UPDATE parrainage_coeur SET actifP= :rActif WHERE idFillot=:rIdFillot AND idParrain= :rIdParrain');
-                            if($answer=$query->execute(array('rActif'=>$actifF, 'rIdParrain'=>$idParrain,'rIdFillot'=>$idFillot)))
+                            $query=$bdd->prepare('UPDATE parrainage_coeur SET actifF= :rActif WHERE idFillot=:rIdFillot AND idParrain= :rIdParrain');
+                            if($answer=$query->execute(array('rActif'=>$actif, 'rIdParrain'=>$idParrain,'rIdFillot'=>$idFillot)))
                             {
                                 echo "Ton parrainage a bien été confirmé ;-) ";
                                 $query->closeCursor();
