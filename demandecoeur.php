@@ -324,7 +324,7 @@ else
     	mail($emailParrain, $sujet, $message, $headers);
 
     	echo('<div class="alert-box success">
-  					Félicitation'.$prenomParrain.''.strtoupper($nomParrain).' et '.$prenomFillot.' '.strtoupper($nomFillot).', vous avez été enregistrés comme parrain et fillot de coeur. Un email va être envoyé sur votre adresse Telecom, n\'oubliez pas d\'y répondre pour confirmer le parrainage.
+  					Félicitation'.$prenomParrain.' '.strtoupper($nomParrain).' et '.$prenomFillot.' '.strtoupper($nomFillot).', vous avez été enregistrés comme parrain et fillot de coeur. Un email va être envoyé sur votre adresse Telecom, n\'oubliez pas d\'y répondre pour confirmer le parrainage.
   					<a href="index.php" class="close">×</a>
   					</div>
   		');
