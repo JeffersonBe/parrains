@@ -157,7 +157,7 @@ else
                     $idFillot = $answerF['id'];
                     $idParrain = $answerP['id'];
 
-                    $query=$bdd->prepare('INSERT INTO parrainage_coeur(idFillot, nomFillot, prenomFillot, idParrain, nomParrain, prenomParrain, actifF, actifP, cleF, clefP) VALUES(:idFillot, :nomFillot, :prenomFillot, :idParrain, :nomParrain, :prenomParrain, :actifF, :actifP, :cleF, :cleP)');
+                    $query=$bdd->prepare('INSERT INTO parrainage_coeur(idFillot, nomFillot, prenomFillot, idParrain, nomParrain, prenomParrain, actifF, actifP, cleF, cleP) VALUES(:idFillot, :nomFillot, :prenomFillot, :idParrain, :nomParrain, :prenomParrain, :actifF, :actifP, :cleF, :cleP)');
                     $query->execute(
                             array(
                                 'idFillot' => $idFillot,
