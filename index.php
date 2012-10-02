@@ -10,13 +10,16 @@
 
   <!-- Set the viewport width to device width for mobile -->
   <meta name="viewport" content="width=device-width" />
-  <title>Application Parrainage de Showtime BDE TMSP 2012</title>
+  <title>Parrainage - Showtime BDE TMSP</title>
   <?php include('includes/head.php'); ?>
 </head>
 <body>
-  <div class="row">
+  <div id="center" class="row">
   <header class="twelve columns">
-      <?php include('includes/menu.php'); ?>
+    <ul class="nav-bar two-up">
+        <li class="active"><a href="index.php">Choisir son parrain</a></li>
+        <li><a href="indexcoeur.php">Choisir votre parrain de cœur</a></li>
+    </ul>
   </header>
   <div id="main" class="twelve columns">
     <p class="ten columns centered lead">Choisis ton parrain/ta marraine. Il/Elle doit être dans la même école que toi. Vous recevrez ensuite un lien de confirmation sur vos adresses email telecom respectives.</p>
@@ -26,6 +29,8 @@
                 </form>
             </div>
   </div><!-- Fin de Main -->
+  <footer class="twelve columns">
+  </footer>
   <!-- Included JS Files (Compressed) -->
   <?php include('includes/script.php'); ?>
 </body>

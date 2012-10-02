@@ -10,13 +10,15 @@
 
   <!-- Set the viewport width to device width for mobile -->
   <meta name="viewport" content="width=device-width" />
-  <title>Welcome to Foundation</title>
+  <title>Parrainage de coeur - Showtime BDE TMSP</title>
   <?php include('includes/head.php'); ?>
 </head>
 <body>
-  <div class="row">
-    <header class="twelve columns">
-        <?php include('includes/menu.php'); ?>
+  <div id="center" class="row">
+    <ul class="nav-bar two-up">
+        <li><a href="index.php">Choisir son parrain</a></li>
+        <li class="active"><a href="indexcoeur.php">Choisir votre parrain de cœur</a></li>
+    </ul>
     </header>
     <div id="main" class="twelve columns">
         <p class="ten columns centered lead">Choisis ton parrain/ta marraine de coeur. Vous recevrez ensuite un lien de confirmation sur vos adresses email telecom respectives.</p>
@@ -26,6 +28,8 @@
             </form>
         </div>
     </div>
+    <footer class="twelve columns">
+    </footer>
   <?php include('includes/script.php'); ?>
 </body>
 </html>

@@ -332,11 +332,9 @@ else
         $headers .= "From: Staff Showtime <contact@showtime2012.fr>\r\n";
         $headers .= "Organization: Showtime BDE TMSP\r\n";
     	$message="
-        <p>Salut ".$prenomFillot." ".$nomFillot.",</p><br>
+        <p>Salut ".$prenomFillot." ".$nomFillot.",</p>
         <p>Pour confirmer que ton parrain est bien ".$prenomParrain." ".$nomParrain.", clique ici:</p>
-
-    	<a href=http://www.showtime2012.com/parrains/confirmation-fillot.php?t=".$idCoeur."&p=".$idParrain."&f=".$idFillot."&c=".$cleF.">http://www.showtime2012.com/parrains/confirmation-fillot.php?t=".$idCoeur."&p=".$idParrain."&f=".$idFillot."&c=".$cleF."</a><br/>
-
+    	<a href=http://www.showtime2012.com/parrains/confirmation-fillot.php?t=".$idCoeur."&p=".$idParrain."&f=".$idFillot."&c=".$cleF.">http://www.showtime2012.com/parrains/confirmation-fillot.php?t=".$idCoeur."&p=".$idParrain."&f=".$idFillot."&c=".$cleF."</a>
     	<h3>Le Staff Showtime</h3>";
     	mail($emailFillot, $sujet, $message, $headers);
 
@@ -348,16 +346,14 @@ else
         $headers .= "From: Staff Showtime <contact@showtime2012.fr>\r\n";
         $headers .= "Organization: Showtime BDE TMSP\r\n";
     	$message="
-    	<p>Salut ".$prenomParrain." ".$nomParrain.",</p><br>
+    	<p>Salut ".$prenomParrain." ".$nomParrain.",</p>
     	<p>Pour confirmer que ton fillot est bien ".strtoupper($prenomFillot)." ".strtoupper($nomFillot).", clique ici:</p>
-
-    	<a href=http://www.showtime2012.com/parrains/confirmation-parrain.php?t=".$idCoeur."&p=".$idParrain."&f=".$idFillot."&c=".$cleP.">http://www.showtime2012.com/parrains/confirmation-parrain.php?t=".$idCoeur."&p=".$idParrain."&f=".$idFillot."&c=".$cleP."</a><br/>
-
+    	<a href=http://www.showtime2012.com/parrains/confirmation-parrain.php?t=".$idCoeur."&p=".$idParrain."&f=".$idFillot."&c=".$cleP.">http://www.showtime2012.com/parrains/confirmation-parrain.php?t=".$idCoeur."&p=".$idParrain."&f=".$idFillot."&c=".$cleP."</a>
     	<h3>Le Staff Showtime</h3>";
     	mail($emailParrain, $sujet, $message, $headers);
 
     	echo('<div class="alert-box success">
-  					<p>Félicitation, '.$prenomParrain.' '.strtoupper($nomParrain).' et '.$prenomFillot.' '.strtoupper($nomFillot).', vous avez été enregistrés comme parrain et fillot. Un email va être envoyé sur votre adresse Telecom, n\'oubliez pas d\'y répondre pour confirmer le parrainage.</p>
+  					<p>Félicitation, '.$prenomParrain.'  '.strtoupper($nomParrain).' et '.$prenomFillot.' '.strtoupper($nomFillot).', vous avez été enregistrés comme parrain et fillot. Un email va être envoyé sur votre adresse Telecom, n\'oubliez pas d\'y répondre pour confirmer le parrainage.</p>
   					<a href="index.php" class="close">×</a>
   				</div>
   		');
