@@ -150,7 +150,7 @@
                                 $query=$bdd->prepare('UPDATE parrainage_coeur SET actifP= :rActif WHERE idFillot=:rIdFillot AND idParrain= :rIdParrain');
                                 if($answer=$query->execute(array('rActif'=>$actif, 'rIdParrain'=>$idParrain,'rIdFillot'=>$idFillot)))
                                 {
-                                    echo "Ton parrainage a bien été confirmé ;-) ";
+                                    echo "Ton parrainage a bien été confirmé, mais ton fillot n'a pas encore validé votre demande de parrainage ";
                                     $query->closeCursor();
                                 }
                                 else
@@ -176,7 +176,7 @@
                             $query=$bdd->prepare('UPDATE parrainage_coeur SET actifP= :rActif WHERE idFillot=:rIdFillot AND idParrain= :rIdParrain');
                             if($answer=$query->execute(array('rActif'=>$actif, 'rIdParrain'=>$idParrain,'rIdFillot'=>$idFillot)))
                             {
-                                echo "Ton parrainage a bien été confirmé ;-) ";
+                                echo "Ton parrainage a bien été confirmé, vous êtes officiellement fillot ";
                                 $query->closeCursor();
                             }
                             else
