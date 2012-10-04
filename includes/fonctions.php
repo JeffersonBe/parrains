@@ -28,14 +28,14 @@ function mailValide($email)
 }
 
 // teste si un mail est en @telecom-sudparis.eu ou @telecom-em.eu ou @it-sudparis.eu
-function mailINT($email)
-{
-	$extensions_autorisees = array('telecom-sudparis.eu', 'telecom-em.eu', 'it-sudparis.eu');
-	$separation = explode('@', $mail);
-	$extension = $separation[1];
-	if(in_array($extension, $extensions_autorisees))
-		return true;
-	else
-		return false;
-}
+function mailINT($mail)
+	{
+		$extensions_autorisees = array('telecom-sudparis.eu', 'telecom-em.eu', 'it-sudparis.eu');
+		$separation = explode('@', $mail);
+		$extension = $separation[1];
+		if(in_array($extension, $extensions_autorisees))
+			return true;
+		else
+			return false;
+	}
 ?>
