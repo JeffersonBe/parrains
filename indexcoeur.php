@@ -21,10 +21,10 @@
     </ul>
     </header>
     <div id="main" class="twelve columns">
-        <p class="ten columns centered lead">Choisis ton parrain/ta marraine de coeur. Vous recevrez ensuite un lien de confirmation sur vos adresses email telecom respectives.</p>
+        <p class="ten columns centered lead">Le parrainage est à présent fini, nous vous remercions de votre participation.</p>
         <div class="twelve columns">
             <form method="post" action="demandecoeur.php" class="six columns centered">
-            <?php include('includes/form.php'); ?>
+            <?php include('includes/fin.php'); ?>
             </form>
         </div>
     </div>
