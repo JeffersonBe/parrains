@@ -23,11 +23,6 @@
   </header>
   <div id="main" class="twelve columns">
     <p class="ten columns centered lead">Le parrainage est à présent fini, nous vous remercions de votre participation.</p>
-            <div class="twelve columns">
-                <form method="post" action="demande.php" class="six columns centered">
-                    <?php include('includes/fin.php'); ?>
-                </form>
-            </div>
   </div><!-- Fin de Main -->
   <footer class="twelve columns">
   </footer>
