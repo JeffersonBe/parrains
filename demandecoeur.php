@@ -47,7 +47,7 @@ else
     		die("
                 <div class=\"six columns centered\">
                     <div class=\"alert-box [success alert secondary]\">
-                        L'email du fillot est invalide, merci d\'utiliser un mail au format @telecom-em.eu ou @it-sudparis.eu
+                        L'email du fillot est invalide, merci d'utiliser un mail au format @telecom-em.eu ou @it-sudparis.eu
                         <a href=\"indexcoeur.php\" class=\"close\">&times;</a>
                     </div
                 </div>
@@ -58,7 +58,7 @@ else
     		die("
                 <div class=\"six columns centered\">
                     <div class=\"alert-box [success alert secondary\">
-                        L'email du Parrain est invalide, merci d\'utiliser un mail au format @telecom-em.eu ou @it-sudparis.eu
+                        L'email du Parrain est invalide, merci d'utiliser un mail au format @telecom-em.eu ou @it-sudparis.eu
                         <a href=\"indexcoeur.php\" class=\"close\">&times;</a>
                     </div
                 </div>
