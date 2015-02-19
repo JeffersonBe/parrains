@@ -1,112 +1,32 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="Identifier-URL" content=""/>
-<meta name="language" content="fr"/>
-<meta name="location" content="France"/>
-<meta name="Author" content="Pierre-Edouard MONTABRUN"/>
-<meta name="Description" content="Choisis ton parrain pour la soirée de parrainage I shot the sherif."/>
-<meta name="keywords" content="Parrainage parrain soirée I shot the sherif 2011 Télécom SudParis Télécom Ecole de Management Chuck Norris"/>
-<meta name="htdig-keywords" content=""/>
-<meta name="subject" content=""/>
-<meta name="Date-Creation-yyyymmdd" content="20110930"/>
-<meta name="Audience" content="all"/>
-<link rel="stylesheet" media="screen" type="text/css" href="style.css" />
-<title>Choisis ton parrain!</title>
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="com.js"></script>
-<script type="text/javascript">
+  <meta charset="utf-8" />
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-20811018-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
- var RecaptchaOptions = {
-    theme : 'blackglass',
-	lang: 'fr'
- };
- </script>
- 
- <!--[if IE]>
-		<style type="text/css">
-			#menu {
-				-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color=#212121,direction=180,strength=0)";
-				filter: progid:DXImageTransform.Microsoft.Shadow(color=#212121,direction=180,strength=0);
-			}
-			#menu ul li a {
-				-ms-filter:  "progid:DXImageTransform.Microsoft.Blur()";
-				filter:  progid:DXImageTransform.Microsoft.Blur();
-			#menu {
-	                -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color=#212121,direction=180,strength=0)"; /* IE 8 */
-	                filter: progid:DXImageTransform.Microsoft.Shadow(color=#212121,direction=180,strength=0); /* IE 7- */
-	            }
-			}
-		</style>
-	<![endif]-->
-
+  <!-- Set the viewport width to device width for mobile -->
+  <meta name="viewport" content="width=device-width" />
+  <title>Parrainage - Showtime BDE TMSP</title>
+  <?php include('includes/head.php'); ?>
 </head>
 <body>
-<div id='full'>
-<div id='bg'>
-<div id='menu'>
-<ul>
-<li class="active"><a href="#">Choisir son parrain</a></li>
-<li><a href="indexcoeur.php">Choisir son parrain de coeur</a></li>
-</ul>
-</div>
-<div id='content'>
-<form method="post" action="treat.php" id="form1">
-	Choisis ton parrain/ta marraine. Il/Elle doit être dans la même école que toi. Vous recevrez ensuite un lien de confirmation sur vos adresses email telecom respectives.<br/><br/>
-	<label for="nom">Nom du parrain: </label><input id="parrain_nom" name="parrain_nom" onkeyup="lookup_nomp(getElementById('fillot_nom').value,getElementById('fillot_prenom').value,this.value);" onFocus="$('#suggestions2').hide();$('#suggestions3').hide();$('#suggestions4').hide();" size="20" type="text" autocomplete="off" />		
-	<label for="nom">Prénom du parrain: </label><input id="parrain_prenom" name="parrain_prenom" onkeyup="lookup_prenomp(getElementById('fillot_nom').value,getElementById('fillot_prenom').value,this.value);" onFocus="$('#suggestions1').hide();$('#suggestions3').hide();$('#suggestions4').hide();" size="20" type="text" autocomplete="off" />	<br/><br/>	
-	<label for="nom">Nom du fillot: </label><input id="fillot_nom" name="fillot_nom" onkeyup="lookup_nomf(getElementById('parrain_nom').value,getElementById('parrain_prenom').value,this.value);" onFocus="$('#suggestions4').hide();$('#suggestions1').hide();$('#suggestions2').hide();" size="20" type="text" autocomplete="off" />	
-	<label for="nom">Prénom du fillot: </label><input id="fillot_prenom" name="fillot_prenom" onkeyup="lookup_prenomf(getElementById('parrain_nom').value,getElementById('parrain_prenom').value,this.value);" onFocus="$('#suggestions3').hide();$('#suggestions1').hide();$('#suggestions2').hide();" size="20" type="text" autocomplete="off" /><br/><br/>		
-
-
-	
-	<div class="suggestionsBox1" id="suggestions1" style="display: none;">
-		<img style="position: relative; top: -12px; left: 30px;" src="img/upArrow.png" alt="upArrow" />
-		<div class="suggestionList" id="autoSuggestionsList1"></div>
-	</div>
-	<div class="suggestionsBox2" id="suggestions2" style="display: none;">
-		<img style="position: relative; top: -12px; left: 30px;" src="img/upArrow.png" alt="upArrow" />
-		<div class="suggestionList" id="autoSuggestionsList2"></div>
-	</div>
-		<div class="suggestionsBox3" id="suggestions3" style="display: none;">
-		<img style="position: relative; top: -12px; left: 30px;" src="img/upArrow.png" alt="upArrow" />
-		<div class="suggestionList" id="autoSuggestionsList3"></div>
-	</div>
-	<div class="suggestionsBox4" id="suggestions4" style="display: none;">
-		<img style="position: relative; top: -12px; left: 30px;" src="img/upArrow.png" alt="upArrow" />
-		<div class="suggestionList" id="autoSuggestionsList4"></div>
-	</div>
-	
-	<div id='captcha'>
-	  <script type="text/javascript"
-     src="http://www.google.com/recaptcha/api/challenge?k=6LcqnMgSAAAAALZPlNk1kNI9o8hkWVMU1pOZOQ-t">
-  </script>
-  <noscript>
-     <iframe src="http://www.google.com/recaptcha/api/noscript?k=6LcqnMgSAAAAALZPlNk1kNI9o8hkWVMU1pOZOQ-t"
-         height="300" width="500" frameborder="0"></iframe><br>
-     <textarea name="recaptcha_challenge_field" rows="3" cols="40">
-     </textarea>
-     <input type="hidden" name="recaptcha_response_field"
-         value="manual_challenge">
-  </noscript>
-  </div>
-  <input type="submit" class="submit" id="submit" value="Match!" /><br/>
-</form>
-</div>
-</div>
-</div>
-
-
+  <div id="center" class="row">
+  <header class="twelve columns">
+    <ul class="nav-bar two-up">
+        <li class="active"><a href="index.php">Choisir son parrain</a></li>
+        <li><a href="indexcoeur.php">Choisir votre parrain de cœur</a></li>
+    </ul>
+  </header>
+  <div id="main" class="twelve columns">
+    <p class="ten columns centered lead">Le parrainage est à présent fini, nous vous remercions de votre participation.</p>
+  </div><!-- Fin de Main -->
+  <footer class="twelve columns">
+  </footer>
+  <!-- Included JS Files (Compressed) -->
+  <?php include('includes/script.php'); ?>
 </body>
 </html>

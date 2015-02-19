@@ -1,9 +1,17 @@
 <?php
-	//Voici le fichier de configuration mysql.
-	//Chaque changement ici se traduira sur tout le module rentrée!	(dingue!)
-	
-	$hostdb='localhost';//adresse du serveur mysql
-	$logindb='root';//nom d'utilisateur
-	$passworddb='';//mot de passe
-	$namedb='dup';//nom de la base de donnée
+	/*
+	*
+	* Nom de la base de données : db434600942
+    * Nom du serveur de la base de données : db434600942.db.1and1.com
+    * Port : 3306
+    * Nom d'utilisateur : dbo434600942
+    * Description :	parrains
+    * Version :	MySQL5.0
+    * Etat : configuration initiée
+	*/
+
+    $hostdb = "db434600942.db.1and1.com"; // nom de votre serveur
+    $logindb = "dbo434600942"; // nom d'utilisateur de connexion à votre bdd
+    $passworddb = "972showtime972"; // mot de passe de connexion à votre bdd
+    $namedb = "db434600942"; // nom de votre bdd
 ?>
