@@ -11,7 +11,6 @@
   <!-- Set the viewport width to device width for mobile -->
   <meta name="viewport" content="width=device-width" />
   <title>Parrainage - Showtime BDE TMSP</title>
-  <?php include('includes/head.php'); ?>
 </head>
 <body>
   <div id="center" class="row">
@@ -27,6 +26,5 @@
   <footer class="twelve columns">
   </footer>
   <!-- Included JS Files (Compressed) -->
-  <?php include('includes/script.php'); ?>
 </body>
 </html>
