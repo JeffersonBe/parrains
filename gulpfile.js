@@ -1,6 +1,12 @@
 var gulp = require('gulp');
-var gulpLoadPlugins = require('gulp-load-plugins');
-var plugins = gulpLoadPlugins();
+var sass = require('gulp-sass');
+var checkPages = require("check-pages");
+
+gulp.task('sass', function () {
+    gulp.src('resources/assets/*.scss')
+        .pipe(sass())
+        .pipe(gulp.dest('public/css'));
+});
 
 gulp.task("checkDev", [ "php serve artisan" ], function(callback) {
   var options = {
