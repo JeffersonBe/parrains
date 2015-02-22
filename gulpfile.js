@@ -1,11 +1,14 @@
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-var checkPages = require("check-pages");
-var shell = require('gulp-shell');
-var uglify = require('gulp-uglify');
+var gulp = require('gulp'),
+    sass = require('gulp-sass'),
+    checkPages = require("check-pages"),
+    shell = require('gulp-shell'),
+    uglify = require('gulp-uglify'),
+    watch = require('gulp-watch')
+    plumber = require('gulp-plumber');
 
-gulp.task('sass', function () {
+gulp.task('styles', function () {
     gulp.src('resources/assets/sass/*.scss')
+        .pipe(plumber())
         .pipe(sass())
         .pipe(gulp.dest('public/css'));
 });
@@ -53,4 +56,8 @@ gulp.task("checkProd", function(callback) {
   checkPages(console, options, callback);
 });
 
-gulp.task("default", ["sass","js"]);
+gulp.task('watch', function() {
+  gulp.watch('resources/assets/sass/*.scss', ['styles']);
+});
+
+gulp.task("default", ["styles","js"]);

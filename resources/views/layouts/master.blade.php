@@ -10,7 +10,10 @@
 
 <body>
     <div class="container">
-        @yield('content')
+        <main>
+            <img id="logo" src="img/logo.svg" class="img-responsive" alt="Responsive image"/>
+            @yield('content')
+        </main>
     </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
