@@ -13,8 +13,9 @@ gulp.task('styles', function () {
         .pipe(gulp.dest('public/css'));
 });
 
-gulp.task('js', function() {
+gulp.task('scripts', function() {
   gulp.src('resources/assets/js/*.js')
+    .pipe(plumber())
     .pipe(uglify())
     .pipe(gulp.dest('public/js'))
 });
@@ -58,6 +59,7 @@ gulp.task("checkProd", function(callback) {
 
 gulp.task('watch', function() {
   gulp.watch('resources/assets/sass/*.scss', ['styles']);
+  gulp.watch('resources/assets/js/*.js', ['scripts']);
 });
 
-gulp.task("default", ["styles","js"]);
+gulp.task("default", ["styles","scripts"]);
