@@ -13,16 +13,20 @@
             <li class="text-center">I need a godfather</li>
         </ul>
         <hr class="hr-style"/>
-        <form class="col-md-8 col-md-offset-2">
-          <div class="form-group">
-            <label for="exampleInputEmail1">Enter your adress mail</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Enter your protégé’s mail</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-          </div>
-        </form>
+            <div id="form-godfather" class="active">
+                <?= Former::vertical_open('myform')
+                ->class("col-md-8 col-md-offset-2"); ?>
+                <?= Former::email('name') ?>
+                <?= Former::email('name') ?>
+                <?= Former::close() ?>
+            </div>
+            <div id="form-protege" class="inactive">
+                <?= Former::vertical_open('myform')
+                ->class("col-md-8 col-md-offset-2"); ?>
+                <?= Former::email('name') ?>
+                <?= Former::email('name') ?>
+                <?= Former::close() ?>
+            </div>
     </div>
     <div class="col-md-12">
         <p class="text-center">

@@ -145,6 +145,11 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
 
+		/*
+		 * Costums Service Providers ...
+		 */
+		'Former\FormerServiceProvider',
+		'Barryvdh\Debugbar\ServiceProvider',
 	],
 
 	/*
@@ -192,6 +197,9 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
+
+		'Former' => 'Former\Facades\Former',
+		'Debugbar'  => 'Barryvdh\Debugbar\Facade',
 
 	],
 
