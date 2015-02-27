@@ -1,0 +1,27 @@
+body {
+  background: #ED4153; }
+
+main {
+  background: none repeat scroll 0 0 white;
+  margin: 175px auto 0;
+  padding: 0 0 25px 0;
+  border-radius: 5px;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.5); }
+
+#logo {
+  margin: 0 45% 30px;
+  width: 70px;
+  padding: 20px 0 0; }
+
+#box-parrains {
+  background: none repeat scroll 0% 0% #F2F2F2;
+  padding: 0 0 20px 0;
+  border-radius: 5px;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.5); }
+
+.nav-tabs {
+  margin-bottom: 15px; }
+
+.input_rose input[type=submit] {
+  background: #ED4153;
+  border-color: white; }
