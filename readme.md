@@ -1,23 +1,59 @@
-## Laravel PHP Framework
+# Laravel PHP Framework
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/downloads.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+## Getting Started
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+### Install composer (globally)
+```
+curl -sS https://getcomposer.org/installer | php
+mv composer.phar /usr/local/bin/composer
+```
+#### Install composer’s dependencies
+```
+composer install
+```
+### Install node
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+Go to [nodejs.org](http://nodejs.org) and follow the instructions.
 
-## Official Documentation
+#### Install Gulp (globally)
+```
+npm install --global gulp
+npm install // on the root of the app
+'''
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+### Database and mail credentials
+Then set your database credentials within an .env file at the root of the app as follow:
 
-## Contributing
+'''
+APP_ENV=local // change this if running in production
+APP_DEBUG=true // hide this if running in production
+APP_KEY=SomeRandomString
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+DB_HOST=localhost
+DB_DATABASE=root
+DB_USERNAME=root
+DB_PASSWORD=root
 
-### License
+CACHE_DRIVER=file
+SESSION_DRIVER=file
+'''
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+### Migrate database
+php artisan migrate
+
+### Finally launch the app
+On local
+```
+php artisan serve
+```
+On server
+Point host to `public/` folder
+
+
+# Todo
+1. Handling form through controller
+2. Sending mail to godfather and protege
+3. Handling matching by 
+4. Create page to see all matching
+
+
