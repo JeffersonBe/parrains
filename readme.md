@@ -1,4 +1,9 @@
-# Laravel PHP Framework
+# Parrains
+
+## Description
+When you are a new student in a school, you're looking for someone to help, a sort of godfather right? Then with parrains it's now possible to find your godfather or protege!
+
+The first version of this application has been developed in the case of my student's body position. It's now update with laravel framework to be used easily and safely by anyone. Enjoy!
 
 ## Getting Started
 
@@ -48,10 +53,8 @@ php artisan serve
 On server
 Point host to `public/` folder
 
-# Todo
+## Todo
 1. Handling form through controller
 2. Sending mail to godfather and protege
-3. Handling matching by 
+3. Handling matching by
 4. Create page to see all matching
-
-
