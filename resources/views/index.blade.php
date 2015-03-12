@@ -25,21 +25,48 @@
 
         <div class="tab-content col-md-12">
             <div id="form-godfather" class="tab-pane active" role="tabpanel">
-                <?= Former::vertical_open('myform')
-                    ->class("col-md-10 col-md-offset-1"); ?>
-                <?= Former::email('Godfather') ?>
-                <?= Former::email('Protege') ?>
+                <?= Former::vertical_open('store')
+                    ->secure()
+                    ->setOption('live_validation', true)
+                    ->rules([   'godfatherEmail'    => 'required|email',
+                                'protegeEmail'      => 'required|email',
+                            ])
+                    ->withErrors()
+                    ->method('POST')
+                    ->class("col-md-10 col-md-offset-1") ?>
+
+                <?= Former::email('godfatherEmail')
+                    ->label("Godfather")
+                    ->placeholder("Enter your email") ?>
+
+                <?= Former::email('protegeEmail')
+                    ->label("Your protege")
+                    ->placeholder("Enter the email of your protege")?>
+
                 <?= Former::actions()
                     ->class("input_rose text-center")
                     ->large_primary_submit('Submit'); ?>
                 <?= Former::close() ?>
             </div>
             <div id="form-protege" class="tab-pane" role="tabpanel">
-                <?= Former::vertical_open('myform')
-                    ->class("col-md-10 col-md-offset-1"); ?>
-                <?= Former::email('Protege') ?>
-                <?= Former::email('Godfather') ?>
-                    <?= Former::actions()
+                <?= Former::vertical_open('store')
+                    ->secure()
+                    ->rules([   'godfatherEmail'    => 'required|email',
+                                'protegeEmail'      => 'required|email',
+                    ])
+                    ->withErrors()
+                    ->setOption('live_validation', true)
+                    ->class("col-md-10 col-md-offset-1") ?>
+
+                <?= Former::email('protegeEmail')
+                    ->label("Your protege")
+                    ->placeholder("Enter your email") ?>
+
+                <?= Former::email('godfatherEmail')
+                    ->label("Your godfather")
+                    ->placeholder("Enter the email of your godfather")?>
+
+                <?= Former::actions()
                     ->class("input_rose text-center")
                     ->large_primary_submit('Submit'); ?>
                 <?= Former::close() ?>

@@ -1,5 +1,7 @@
 <?php namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreMatchingRequest;
+
 class WelcomeController extends Controller {
 
 	/*
@@ -13,11 +15,9 @@ class WelcomeController extends Controller {
 	|
 	*/
 
-	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
+    /**
+     *
+     */
 	public function __construct()
 	{
 		$this->middleware('guest');
@@ -33,4 +33,11 @@ class WelcomeController extends Controller {
 		return view('index');
 	}
 
+    /**
+     * @param StoreMatchingRequest $request
+     * @return string
+     */
+    public function store(StoreMatchingRequest $request) {
+        return "test";
+    }
 }
